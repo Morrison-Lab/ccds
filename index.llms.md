@@ -4,7 +4,7 @@ Code
 
 Published
 
-Last modified: 2026-10-30 13:54:17 (PDT)
+Last modified: 2026-11-04 23:20:09 (PST)
 
 ## Welcome
 
@@ -12,7 +12,7 @@ Computational complexity asks how much time, memory or randomness a problem need
 
 These notes collect the computational complexity that data science courses use. They are new. The pages written so far are:
 
-- [Asymptotic notation](asymptotic-notation.llms.md): big-O, big-Omega and big-Theta, and what it means for a computation to cost \\O(D)\\
+- [Asymptotic notation](asymptotic-notation.llms.md): big-O, big-Omega and big-Theta, and what it means for a computation to cost $O(D)$
 - [P and NP](p-and-np.llms.md): decision problems, polynomial running time, and the classes P and NP
 - [Reductions and NP-completeness](reductions.llms.md): polynomial-time reductions, NP-complete problems, and why sparse regression is computationally hard
 - [Kolmogorov complexity](kolmogorov-complexity.llms.md): the length of the shortest program that prints a string, why most strings are incompressible and no program computes it, and how its average per symbol approaches Shannon entropy
