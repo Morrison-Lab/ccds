@@ -22,7 +22,8 @@ $i$ cells to the right and $i$ cells to the left of $\triangleright$.
 It remembers in its state which half each head is in,
 so it carries out each step of $M$ in a constant number of steps.
 At the end it unfolds $M$'s output onto its own output tape.
-The input has $n$ symbols, which is at most $T(n)$,
+The input has $n$ symbols,
+which is at most $T(n)$,
 and the output has at most $T(n)$ symbols,
 so the copy and the unfolding take $\asymub{T(n)}$ steps each.
 
