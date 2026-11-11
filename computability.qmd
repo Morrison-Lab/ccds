@@ -1,0 +1,97 @@
+---
+title: "Computability"
+format:
+  html: default
+  revealjs:
+    output-file: computability-slides.html
+  pdf:
+    output-file: computability-handout.pdf
+  docx:
+    output-file: computability.docx
+---
+
+{{< include latex-macros/macros.qmd >}}
+
+Some problems have no algorithm at all, however much time is allowed.
+No [Turing machine](models-of-computation.qmd#def-turing-machine)
+[decides](models-of-computation.qmd#def-tm-computes) whether a program
+[halts](models-of-computation.qmd#def-turing-machine).
+The proof uses an argument called diagonalization,
+and the same argument shows that more time lets machines decide more problems.
+These results build on the [models of computation](models-of-computation.qmd) page,
+which defines Turing machines, their
+[descriptions](models-of-computation.qmd#def-tm-description) as strings,
+and the universal machine.
+
+## Decidable problems {#sec-decidable}
+
+<!-- No slidebreak here: the heading shares its slide with the def-decidable div. -->
+
+{{< include cds/_subfiles/_def-decidable.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_exm-decidable.qmd >}}
+
+## An undecidable problem {#sec-diagonal-problem}
+
+<!-- No slidebreak here: the heading shares its slide with the def-diagonal-problem div. -->
+
+{{< include cds/_subfiles/_def-diagonal-problem.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_exm-diagonal-problem.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_thm-uc-undecidable.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_rem-diagonalization.qmd >}}
+
+## The halting problem {#sec-halting-problem}
+
+<!-- No slidebreak here: the heading shares its slide with the def-halting-problem div. -->
+
+{{< include cds/_subfiles/_def-halting-problem.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_exm-halting-problem.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_thm-halting-undecidable.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_rem-halting-in-practice.qmd >}}
+
+## The time hierarchy theorem {#sec-time-hierarchy}
+
+<!-- No slidebreak here: the heading shares its slide with the def-dtime div. -->
+
+{{< include cds/_subfiles/_def-dtime.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_exm-dtime.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_thm-time-hierarchy.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_thm-time-hierarchy-general.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_rem-time-hierarchy-general.qmd >}}
+
+## References {.unnumbered}
+
+::: {#refs}
+:::

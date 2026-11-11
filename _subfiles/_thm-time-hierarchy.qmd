@@ -1,0 +1,67 @@
+:::{#thm-time-hierarchy}
+#### More time decides more problems
+
+The [time complexity class](#def-dtime) $\text{DTIME}(n)$
+is a proper subset of $\text{DTIME}(n^{1.5})$
+[@arora2009computational, section 3.1].
+
+:::
+
+::: {.proof}
+Every problem in $\text{DTIME}(n)$ is in $\text{DTIME}(n^{1.5})$,
+because $n = \asymub{n^{1.5}}$.
+For the other half, let $U$ be the
+[universal machine](models-of-computation.qmd#thm-universal-tm),
+and build a machine $D$ that, on an input $x$ of length $n$, does the following:
+
+1. Copy the [pair encoding](models-of-computation.qmd#def-pair-encoding) $\angb{x, x}$ onto a work tape.
+2. Compute the number $t = \floor{n^{1.4}}$ in binary on another work tape. <!-- hybrid-ok: the formula names the number the step computes -->
+3. Run $U$ on $\angb{x, x}$,
+   which runs the machine that $x$ [describes](models-of-computation.qmd#def-tm-description) on input $x$,
+   and subtract $1$ from $t$ after each step of $U$.
+   Stop $U$ when $t$ reaches $0$.
+4. If $U$ halted within those steps
+   with [output](models-of-computation.qmd#def-turing-machine) $b \in \set{0, 1}$,
+   output $1 - b$.
+   Otherwise output $0$.
+
+Steps 1 and 2 take $\asymub{n \log_2 n}$ steps:
+$D$ writes $\angb{x, x}$,
+counts the symbols of $x$ in binary,
+then does arithmetic on numbers of $\asymub{\log_2 n}$ digits.
+Step 3 runs $U$ for at most $n^{1.4}$ steps,
+and each subtraction takes $\asymub{\log_2 n}$ steps,
+so step 3 takes $\asymub{n^{1.4} \log_2 n}$ steps,
+which is $\asymub{n^{1.5}}$ because $\log_2 n = \asymub{n^{0.1}}$. <!-- inline-ok -->
+So $D$ [halts](models-of-computation.qmd#def-turing-machine) on every input,
+and the problem $L$ that $D$ [decides](models-of-computation.qmd#def-tm-computes) is in $\text{DTIME}(n^{1.5})$.
+
+Suppose $L$ is also in $\text{DTIME}(n)$.
+Then some [Turing machine](models-of-computation.qmd#def-turing-machine) $M$ decides $L$,
+and there are a constant $c \ge 1$ and an integer $n_0$
+such that $M$ halts within $c \, n$ steps on every input of length $n \ge n_0$.
+<!-- hybrid-ok: the math only names the input and its length -->
+Let $C$ be the constant that
+[the universal machine theorem](models-of-computation.qmd#thm-universal-tm)
+gives for $M$,
+and let
+$$
+B(n) \eqdef C \paren{n + c \, n \log_2 (c \, n + 1)}.
+$$
+$B(n)$ is $\asymub{n \log_2 n}$,
+so there is an $n_1 \ge \max(n_0, 1)$ such that $B(n) < \floor{n^{1.4}}$
+for every $n \ge n_1$.
+$M$ has infinitely many [descriptions](models-of-computation.qmd#def-tm-description),
+so it has a description $x$ whose length $n$ is at least $n_1$.
+$M$ halts on $x$ within $c \, n$ steps,
+so by the universal machine theorem,
+$U$ on $\angb{x, x}$ halts with output $M(x)$ within
+$C \paren{\strlen{x} + c \, n \log_2 (c \, n + 1)} = B(n)$ steps.
+So $U$ finishes within the $\floor{n^{1.4}}$ steps that $D$ allows,
+with output $b = M(x)$,
+so $D(x) = 1 - M(x) \ne M(x)$. <!-- inline-ok -->
+But $M$ and $D$ both decide $L$, so $M(x) = D(x)$,
+a contradiction.
+So $L$ is not in $\text{DTIME}(n)$.
+
+:::

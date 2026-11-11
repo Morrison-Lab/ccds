@@ -49,6 +49,10 @@ website:
         menu:
           - p-and-np.qmd
           - reductions.qmd
+      - text: "Computability"
+        menu:
+          - models-of-computation.qmd
+          - computability.qmd
       - text: "Compression"
         menu:
           - kolmogorov-complexity.qmd
@@ -70,6 +74,10 @@ website:
         contents:
           - p-and-np.qmd
           - reductions.qmd
+      - section: "Computability"
+        contents:
+          - models-of-computation.qmd
+          - computability.qmd
       - section: "Compression"
         contents:
           - kolmogorov-complexity.qmd

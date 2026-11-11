@@ -1,0 +1,13 @@
+:::{#def-decidable}
+#### Decidable problem
+
+A [decision problem](p-and-np.qmd#def-decision-problem) $L$ is **decidable**
+if some [Turing machine](models-of-computation.qmd#def-turing-machine)
+[decides](models-of-computation.qmd#def-tm-computes) it:
+the machine [halts](models-of-computation.qmd#def-turing-machine) on every input $x$,
+with [output](models-of-computation.qmd#def-turing-machine) $1$ if $x \in L$
+and $0$ if $x \notin L$.
+A problem that no Turing machine decides is *undecidable*
+[@arora2009computational, section 1.5].
+
+:::

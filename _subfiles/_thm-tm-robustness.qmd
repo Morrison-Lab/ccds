@@ -1,0 +1,28 @@
+:::{#thm-tm-robustness}
+#### The details of the model change running time only polynomially
+
+Let $f$ be a function from $\set{0, 1}^*$ to $\set{0, 1}^*$,
+and let $T$ be [time-constructible](#def-time-constructible).
+Suppose a [Turing machine](#def-turing-machine) $M$ with $k$ tapes and an alphabet of $s$ symbols
+[computes](#def-tm-computes) $f$ in time $T(n)$.
+Then:
+
+1. A Turing machine with $k$ tapes and the alphabet $\set{0, 1, \square, \triangleright}$
+   computes $f$ in time $\asymub{T(n) \log_2 s}$.
+2. A single-tape machine computes $f$ in time $\asymub{T(n)^2}$.
+3. If $M$ is instead a bidirectional machine,
+   a Turing machine computes $f$ in time $\asymub{T(n)}$.
+
+A *single-tape machine* is the same as a Turing machine,
+except that it has one tape, which starts with $\triangleright$ followed by the input,
+which it can read and write,
+and which holds the output when it [halts](#def-turing-machine).
+A *bidirectional machine* is the same as a Turing machine,
+except that each tape also goes on forever to the left of the cell holding $\triangleright$,
+and a head can move left from that cell.
+The input and the output sit to the right of $\triangleright$, as before.
+The constant in part 2 depends on $k$,
+and none of the constants depends on $f$, $T$, or $n$
+[@arora2009computational, section 1.3].
+
+:::

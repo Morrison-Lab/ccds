@@ -1,0 +1,16 @@
+::: {#rem-time-hierarchy-general}
+#### Proof and consequences of the time hierarchy theorem
+
+A refinement of the proof of @thm-time-hierarchy proves @thm-time-hierarchy-general.
+It uses the same diagonal machine,
+but with a clock that costs a constant number of steps per simulated step on average,
+in place of the $\asymub{\log_2 n}$ steps per subtraction in the proof of @thm-time-hierarchy.
+That proof could afford the extra $\log_2 n$ factor only
+because $n^{1.4}$ and $n^{1.5}$ differ by a power of $n$.
+The $\log_2 f(n)$ factor in the hypothesis is the overhead of the universal machine
+in [the universal machine theorem](models-of-computation.qmd#thm-universal-tm).
+Since $n^c \log_2 n^c = o(n^{c + 1})$,
+$\text{DTIME}(n^c)$ is a proper subset of $\text{DTIME}(n^{c + 1})$ for every integer $c \ge 1$,
+so [the class P](p-and-np.qmd#def-class-p) is not equal to $\text{DTIME}(n^c)$ for any single constant $c$.
+
+:::

@@ -1,10 +1,12 @@
 ::: {#rem-algorithm-model}
 #### What counts as an algorithm and a step
 
-@arora2009computational [chapter 1] make "algorithm" precise as a Turing machine,
+@arora2009computational [chapter 1] make "algorithm" precise as a
+[Turing machine](models-of-computation.qmd#def-turing-machine),
 and count one step as one move of the machine.
-These notes have not yet defined Turing machines,
-so read "algorithm" as any program for an ordinary computer,
+Read "algorithm" either way:
+as a Turing machine,
+or as any program for an ordinary computer,
 with one step per basic operation on a bounded number of bits.
 The two models can simulate each other
 with at most a polynomial increase in running time

@@ -1,0 +1,11 @@
+:::{#thm-time-hierarchy-general}
+#### The time hierarchy theorem
+
+Let $f$ and $g$ be [time-constructible functions](models-of-computation.qmd#def-time-constructible)
+with $f(n) \log_2 f(n) = o(g(n))$
+([little-o notation](asymptotic-notation.qmd#def-little-o)).
+Then the [time complexity class](#def-dtime) $\text{DTIME}(f(n))$
+is a proper subset of $\text{DTIME}(g(n))$
+[@arora2009computational, section 3.1].
+
+:::

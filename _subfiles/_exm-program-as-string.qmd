@@ -1,0 +1,15 @@
+:::{#exm-program-as-string}
+#### A program file is a description
+
+A Python script saved to disk is a sequence of bytes,
+so it is a binary string,
+and the Python interpreter reads that string as a program,
+much as @def-tm-description reads a string as a [Turing machine](#def-turing-machine).
+Appending a comment line to the script gives a longer string
+that [describes](#def-tm-description) the same program,
+which is the padding convention of @def-tm-description.
+A file that is not valid Python makes the interpreter stop with a syntax error,
+which plays the role of the fixed machine that invalid strings describe,
+for instance one that [halts](#def-turing-machine) at once.
+
+:::

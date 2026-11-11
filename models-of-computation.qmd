@@ -1,0 +1,104 @@
+---
+title: "Models of computation"
+format:
+  html: default
+  revealjs:
+    output-file: models-of-computation-slides.html
+  pdf:
+    output-file: models-of-computation-handout.pdf
+  docx:
+    output-file: models-of-computation.docx
+---
+
+{{< include latex-macros/macros.qmd >}}
+
+To say that a problem needs a certain number of steps,
+we must first fix what a step is.
+This page defines the [Turing machine](#def-turing-machine),
+the model of computation that complexity theory uses,
+and shows why the choice of model hardly matters:
+the variants of the model, and ordinary computers,
+simulate each other with at most a polynomial increase in
+[running time](p-and-np.qmd#def-running-time).
+It ends with the universal machine,
+one Turing machine that can run every other.
+The [asymptotic notation](asymptotic-notation.qmd) page defines the $\asymub{\cdot}$ notation used here.
+
+## Turing machines {#sec-turing-machines}
+
+<!-- No slidebreak here: the heading shares its slide with the def-turing-machine div. -->
+
+{{< include cds/_subfiles/_def-turing-machine.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_exm-palindrome-machine.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_def-tm-computes.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_exm-palindromes-linear-time.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_rem-turing-machine-steps.qmd >}}
+
+## Robustness of the model {#sec-model-robustness}
+
+<!-- No slidebreak here: the heading shares its slide with the def-time-constructible div. -->
+
+{{< include cds/_subfiles/_def-time-constructible.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_exm-time-constructible.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_rem-time-bounds-vs-ab.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_thm-tm-robustness.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_rem-tm-robustness-proof.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_rem-church-turing.qmd >}}
+
+## The universal machine {#sec-universal-machine}
+
+<!-- No slidebreak here: the heading shares its slide with the def-tm-description div. -->
+
+{{< include cds/_subfiles/_def-tm-description.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_exm-program-as-string.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_def-pair-encoding.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_exm-pair-encoding.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_thm-universal-tm.qmd >}}
+
+{{< slidebreak >}}
+
+{{< include cds/_subfiles/_rem-universal-tm.qmd >}}
+
+## References {.unnumbered}
+
+::: {#refs}
+:::

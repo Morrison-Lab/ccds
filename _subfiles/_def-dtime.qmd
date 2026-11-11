@@ -1,0 +1,14 @@
+:::{#def-dtime}
+#### Time complexity class
+
+Let $T$ be a function from the nonnegative integers to the nonnegative real numbers.
+The class $\text{DTIME}(T(n))$ is the set of
+[decision problems](p-and-np.qmd#def-decision-problem) $L$
+such that some [Turing machine](models-of-computation.qmd#def-turing-machine)
+[decides](models-of-computation.qmd#def-tm-computes) $L$
+and [runs in time](p-and-np.qmd#def-running-time) $T'(n)$
+for some function $T'$ with $T'(n) = \asymub{T(n)}$
+([big-O notation](asymptotic-notation.qmd#def-big-o))
+[adapted from @arora2009computational, section 1.6].
+
+:::

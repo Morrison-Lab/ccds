@@ -1,0 +1,18 @@
+:::{#def-tm-description}
+#### Machines as strings
+
+A [Turing machine](#def-turing-machine) is a finite object:
+its states, its alphabet, and the table of its transition function.
+So it can be written as a binary string, its **description**.
+Fix one such encoding,
+which a machine can decode in a number of steps linear in the length of the description,
+with two conventions
+[@arora2009computational, section 1.4]:
+
+- Every binary string $w$ describes some Turing machine, written $M_w$.
+  A string that is not a valid encoding describes one fixed machine.
+- Every Turing machine has infinitely many descriptions,
+  because the encoding allows padding:
+  if $w$ describes $M$, so do longer strings that extend $w$ with symbols the decoder ignores.
+
+:::

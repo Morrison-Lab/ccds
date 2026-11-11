@@ -1,0 +1,12 @@
+:::{#exm-halting-problem}
+#### Pairs in and out of the halting problem
+
+Suppose $w$ [describes](models-of-computation.qmd#def-tm-description) a machine
+that [halts](models-of-computation.qmd#def-turing-machine) at once if the first symbol of its input is $0$,
+and otherwise moves its input head right forever.
+Then $\angb{w, 0}$ and $\angb{w, 011}$ are in [HALT](#def-halting-problem),
+and $\angb{w, 1}$ is not.
+Neither is $\angb{w, x}$ for the empty string $x$,
+because the first symbol the machine reads after $\triangleright$ is then a blank, not $0$.
+
+:::

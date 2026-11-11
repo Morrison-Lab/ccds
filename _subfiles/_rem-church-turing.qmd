@@ -1,0 +1,17 @@
+::: {#rem-church-turing}
+#### The Church-Turing thesis
+
+Every model of computation that has been proposed and that can be built,
+from programming languages to random-access machines,
+can be simulated by a [Turing machine](#def-turing-machine).
+The *Church-Turing thesis* claims that every function a physical device can compute,
+a Turing machine can compute.
+It is a claim about the physical world, not a theorem.
+A stronger version, which quantum computers may refute,
+says the simulation costs at most a polynomial increase in [running time](p-and-np.qmd#def-running-time)
+[@arora2009computational, section 1.6].
+Under that version, [the class P](p-and-np.qmd#def-class-p) is the same
+whichever reasonable model it is defined with,
+as @thm-tm-robustness shows for the variations of the Turing machine itself.
+
+:::

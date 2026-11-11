@@ -1,0 +1,32 @@
+:::{#thm-halting-undecidable}
+#### The halting problem is undecidable
+
+The [halting problem](#def-halting-problem) is [undecidable](#def-decidable)
+[@turing1937computable; @arora2009computational, section 1.5].
+
+:::
+
+::: {.proof}
+Suppose a [Turing machine](models-of-computation.qmd#def-turing-machine) $H$
+[decides](models-of-computation.qmd#def-tm-computes) [HALT](#def-halting-problem).
+Build a machine $D$ that, on input $w$, does the following:
+
+1. Run $H$ on $\angb{w, w}$.
+2. If $H$ [outputs](models-of-computation.qmd#def-turing-machine) $0$,
+   then $M_w$ does not halt on $w$,
+   so $M_w(w) \ne 1$ and $w \in \text{UC}$: output $1$.
+3. If $H$ outputs $1$, then $M_w$ halts on $w$.
+   Run the [universal machine](models-of-computation.qmd#thm-universal-tm) $U$
+   on $\angb{w, w}$,
+   with $w$ as the [description](models-of-computation.qmd#def-tm-description) and as the input,
+   which halts with output $M_w(w)$.
+   Output $0$ if $M_w(w) = 1$, and $1$ otherwise.
+
+$H$ halts on every input, and step 3 runs $U$ only when $M_w$ halts on $w$,
+so $D$ halts on every input.
+Its output is $1$ exactly when $M_w(w) \ne 1$,
+so $D$ decides the [diagonal problem](#def-diagonal-problem) UC.
+This contradicts @thm-uc-undecidable,
+so no Turing machine decides HALT.
+
+:::

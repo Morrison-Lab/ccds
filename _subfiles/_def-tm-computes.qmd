@@ -1,0 +1,13 @@
+:::{#def-tm-computes}
+#### Computing a function
+
+Let $f$ be a function from $\set{0, 1}^*$ to $\set{0, 1}^*$.
+A [Turing machine](#def-turing-machine) $M$ **computes** $f$
+if $M$ [halts](#def-turing-machine) on every input $x \in \set{0, 1}^*$
+with [output](#def-turing-machine) $f(x)$.
+Write $M(x)$ for the output of $M$ on input $x$.
+A Turing machine [decides](p-and-np.qmd#def-decision-problem) a [decision problem](p-and-np.qmd#def-decision-problem) $L$
+exactly when it computes the function that is $1$ on $L$ and $0$ off it
+[@arora2009computational, section 1.2].
+
+:::

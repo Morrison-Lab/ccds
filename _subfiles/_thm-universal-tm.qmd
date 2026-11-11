@@ -1,0 +1,15 @@
+:::{#thm-universal-tm}
+#### A universal Turing machine
+
+There is a [Turing machine](#def-turing-machine) $U$
+that runs any other machine from its [description](#def-tm-description).
+Its input is the [pair encoding](#def-pair-encoding) $\angb{w, x}$ of binary strings $w$ and $x$.
+$U$ [outputs](#def-turing-machine) $M_w(x)$ whenever $M_w$ [halts](#def-turing-machine) on $x$,
+and $U$ runs forever when $M_w$ does not.
+If $M_w$ halts on $x$ within $T \ge 1$ steps,
+then $U$ halts within $C \paren{\strlen{w} + T \log_2 (T + 1)}$ steps.
+The constant $C$ depends only on the machine $M_w$.
+It depends neither on $x$ nor on the padding in $w$
+[adapted from @arora2009computational, section 1.4].
+
+:::

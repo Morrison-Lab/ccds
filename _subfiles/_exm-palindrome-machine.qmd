@@ -1,0 +1,38 @@
+:::{#exm-palindrome-machine}
+#### A machine that checks for palindromes
+
+A binary string is a *palindrome* if it reads the same backward as forward,
+like $0110$ or $10101$.
+A [Turing machine](#def-turing-machine) with three tapes
+(input, one work tape, and [output](#def-turing-machine))
+can check whether its input $x$ is a palindrome in three phases
+[@arora2009computational, example 1.1]:
+
+1. *Copy*: move the input head and the work head right together,
+   writing each symbol of $x$ onto the work tape,
+   until the input head reaches the blank after $x$.
+   The first step also moves the output head right, off $\triangleright$.
+2. *Rewind*: move the input head left until it reads $\triangleright$,
+   then one cell right, onto the first symbol of $x$.
+   Move the work head one cell left, onto the last symbol of the copy.
+3. *Compare*: at each step, first check the input head.
+   If it reads the blank after $x$,
+   write $1$ on the output tape and [halt](#def-turing-machine).
+   Otherwise, if the two heads read different symbols,
+   write $0$ on the output tape and halt.
+   If they read the same symbol,
+   move the input head one cell right and the work head one cell left,
+   and repeat.
+
+After the first step of the copy phase, the output head never moves,
+so the output is the single digit written in the cell after $\triangleright$.
+
+On the input $0110$,
+the compare phase reads the pairs $(0, 0)$, $(1, 1)$, $(1, 1)$, and $(0, 0)$,
+finds no mismatch, and outputs $1$.
+On $0111$ it reads $(0, 1)$ first and outputs $0$.
+Each phase is a few states of the machine,
+and each state of a phase checks which symbols the heads read
+to decide whether to stay in the phase or move to the next.
+
+:::
