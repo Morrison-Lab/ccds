@@ -3,7 +3,8 @@
 
 A **Turing machine** with $k \ge 2$ tapes consists of:
 
-- $k$ tapes, each a sequence of cells that starts at a leftmost cell and goes on forever to the right,
+- $k$ tapes, each a sequence of cells
+  that starts at a leftmost cell and goes on forever to the right,
   with one head per tape that reads and writes one cell at a time.
   The first tape is the *input tape*, which the machine can read but not write;
   the last tape is the *output tape*;

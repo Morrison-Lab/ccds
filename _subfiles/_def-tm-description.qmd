@@ -4,7 +4,9 @@
 A [Turing machine](#def-turing-machine) is a finite object:
 its states, its alphabet, and the table of its transition function.
 So it can be written as a binary string, its **description**.
-Fix one such encoding, with two conventions
+Fix one such encoding,
+which a machine can decode in a number of steps linear in the length of the description,
+with two conventions
 [@arora2009computational, section 1.4]:
 
 - Every binary string $w$ describes some Turing machine, written $M_w$.

@@ -3,7 +3,7 @@
 
 Four common examples, $n$, $n \ceil{\log_2 (n + 1)}$, $n^2$, and $2^n$, are all
 [time-constructible](#def-time-constructible) [@arora2009computational, section 1.3].
-A machine that is allowed $T(n)$ steps on inputs of length $n$
+A machine that is allowed $\asymub{T(n)}$ steps on inputs of length $n$
 can, when $T$ is time-constructible,
 first write $T(n)$ on a work tape
 and then use it as a clock that stops a computation after $T(n)$ of its steps.

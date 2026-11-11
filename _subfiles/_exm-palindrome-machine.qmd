@@ -16,10 +16,11 @@ can check whether its input $x$ is a palindrome in three phases
    then one cell right, onto the first symbol of $x$.
    Move the work head one cell left, onto the last symbol of the copy.
 3. *Compare*: move the input head right and the work head left together.
-   If the two heads ever read different symbols,
-   write $0$ on the output tape and [halt](#def-turing-machine).
-   If the input head reaches the blank after $x$ without a mismatch,
-   write $1$ and halt.
+   At each step, first check the input head:
+   if it reads the blank after $x$,
+   write $1$ on the output tape and [halt](#def-turing-machine).
+   Otherwise, if the two heads read different symbols,
+   write $0$ on the output tape and halt.
 
 On the input $0110$,
 the compare phase reads the pairs $(0, 0)$, $(1, 1)$, $(1, 1)$, and $(0, 0)$,

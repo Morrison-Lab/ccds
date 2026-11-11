@@ -58,6 +58,10 @@ The [asymptotic notation](asymptotic-notation.qmd) page defines the $\asymub{\cd
 
 {{< slidebreak >}}
 
+{{< include cds/_subfiles/_rem-time-bounds-vs-ab.qmd >}}
+
+{{< slidebreak >}}
+
 {{< include cds/_subfiles/_thm-tm-robustness.qmd >}}
 
 {{< slidebreak >}}

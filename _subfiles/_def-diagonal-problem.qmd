@@ -5,7 +5,8 @@ The **diagonal problem** UC is the [decision problem](p-and-np.qmd#def-decision-
 whose yes inputs are the strings $w$ such that
 the machine $M_w$ that $w$ [describes](models-of-computation.qmd#def-tm-description),
 run on its own [description](models-of-computation.qmd#def-tm-description) $w$,
-does not [halt](models-of-computation.qmd#def-turing-machine) with [output](models-of-computation.qmd#def-turing-machine) $1$:
+does not [halt](models-of-computation.qmd#def-turing-machine)
+with [output](models-of-computation.qmd#def-turing-machine) $1$:
 
 $$\text{UC} \eqdef \set{w \in \set{0, 1}^* : M_w(w) \ne 1},$$
 

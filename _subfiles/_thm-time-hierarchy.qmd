@@ -16,10 +16,12 @@ and build a machine $D$ that, on an input $x$ of length $n$, does the following:
 
 1. Copy the [pair encoding](models-of-computation.qmd#def-pair-encoding) $\angb{x, x}$ onto a work tape.
 2. Compute the number $t = \floor{n^{1.4}}$ in binary on another work tape. <!-- hybrid-ok: the formula names the number the step computes -->
-3. Run $U$ on $\angb{x, x}$, which runs the machine that $x$ [describes](models-of-computation.qmd#def-tm-description) on input $x$,
+3. Run $U$ on $\angb{x, x}$,
+   which runs the machine that $x$ [describes](models-of-computation.qmd#def-tm-description) on input $x$,
    and subtract $1$ from $t$ after each step of $U$.
    Stop $U$ when $t$ reaches $0$.
-4. If $U$ halted within those steps with [output](models-of-computation.qmd#def-turing-machine) $b \in \set{0, 1}$,
+4. If $U$ halted within those steps
+   with [output](models-of-computation.qmd#def-turing-machine) $b \in \set{0, 1}$,
    output $1 - b$.
    Otherwise output $0$.
 
@@ -41,11 +43,12 @@ such that $M$ halts within $c \, n$ steps on every input of length $n \ge n_0$.
 <!-- hybrid-ok: the math only names the input and its length -->
 Let $x$ be an input of length $n \ge n_0$,
 and let $w$ be any [description](models-of-computation.qmd#def-tm-description) of $M$.
-By @thm-universal-tm,
-$U$ halts with output $M(x)$ within $C \, c \, n \log_2 (c \, n)$ steps
-when it runs $M_w$ on $x$,
+By [the universal machine theorem](models-of-computation.qmd#thm-universal-tm),
+$U$ on $\angb{w, x}$ halts with output $M(x)$ within
+$C \paren{\strlen{w} + c \, n \log_2 (c \, n + 1)}$ steps,
 where $C$ depends on $M$ but not on $w$ or $x$.
-That bound is $\asymub{n \log_2 n}$,
+When $w = x$, so that $\strlen{w} = n$,
+that bound is $\asymub{n \log_2 n}$,
 so there is an $n_1 \ge n_0$ such that the bound is less than $\floor{n^{1.4}}$
 for every $n \ge n_1$.
 $M$ has infinitely many descriptions,

@@ -7,7 +7,8 @@ The [diagonal problem](#def-diagonal-problem) UC is [undecidable](#def-decidable
 :::
 
 ::: {.proof}
-Suppose a [Turing machine](models-of-computation.qmd#def-turing-machine) $M$ [decides](models-of-computation.qmd#def-tm-computes) UC,
+Suppose a [Turing machine](models-of-computation.qmd#def-turing-machine) $M$
+[decides](models-of-computation.qmd#def-tm-computes) UC,
 and let $w$ be a [description](models-of-computation.qmd#def-tm-description) of $M$,
 so that $M_w = M$.
 Then $M$ [halts](models-of-computation.qmd#def-turing-machine) on $w$

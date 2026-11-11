@@ -1,7 +1,8 @@
 :::{#exm-diagonal-problem}
 #### Machines in and out of the diagonal problem
 
-If $w$ [describes](models-of-computation.qmd#def-tm-description) a machine that [outputs](models-of-computation.qmd#def-turing-machine) $1$ on every input,
+If $w$ [describes](models-of-computation.qmd#def-tm-description) a machine
+that [outputs](models-of-computation.qmd#def-turing-machine) $1$ on every input,
 then $M_w(w) = 1$, so $w$ is not in [UC](#def-diagonal-problem).
 If $w$ describes a machine that outputs $0$ on every input,
 or one that runs forever on every input,
