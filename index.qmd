@@ -24,6 +24,14 @@ The pages written so far are:
 
 - [Asymptotic notation](asymptotic-notation.qmd):
   big-O, big-Omega and big-Theta, and what it means for a computation to cost $O(D)$
+- [Models of computation](models-of-computation.qmd):
+  [Turing machines](models-of-computation.qmd#def-turing-machine),
+  why the details of the model hardly matter,
+  and the universal machine that runs every other machine
+- [Computability](computability.qmd):
+  problems that no algorithm [decides](models-of-computation.qmd#def-tm-computes),
+  such as the [halting problem](computability.qmd#def-halting-problem),
+  and the theorem that more time decides more problems
 - [P and NP](p-and-np.qmd):
   decision problems, polynomial running time, and the classes P and NP
 - [Reductions and NP-completeness](reductions.qmd):
@@ -36,7 +44,6 @@ The pages written so far are:
 
 The planned topics still to come are:
 
-- models of computation: Turing machines and computability
 - space complexity
 - randomized computation
 - communication and information complexity

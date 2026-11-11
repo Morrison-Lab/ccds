@@ -1,0 +1,14 @@
+::: {#rem-turing-machine-steps}
+#### Steps and running time
+
+The [running time](p-and-np.qmd#def-running-time) of a [Turing machine](#def-turing-machine)
+counts the steps of @def-turing-machine,
+one application of the transition function each.
+One step moves each head by at most one cell,
+so reaching a cell $m$ cells away takes at least $m$ steps.
+An ordinary computer can jump to any memory address in one operation,
+so a Turing machine can need more steps than an ordinary program for the same task.
+@thm-tm-robustness and @rem-church-turing explain why that gap does not change
+which problems have [polynomial-time](p-and-np.qmd#def-running-time) algorithms.
+
+:::

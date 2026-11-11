@@ -1,0 +1,18 @@
+:::{#exm-decidable}
+#### Decidable problems from P and NP
+
+The palindromes are [decidable](#def-decidable),
+because the machine of
+[the palindrome example](models-of-computation.qmd#exm-palindromes-linear-time)
+[decides](models-of-computation.qmd#def-tm-computes) them.
+[INDSET](p-and-np.qmd#def-indset) is decidable too,
+even though no [polynomial-time](p-and-np.qmd#def-running-time) algorithm for it is known:
+it is in [NP](p-and-np.qmd#def-class-np),
+so a machine can run its verifier, with certificate length $q$ as in the definition of NP, on each of the $2^{q(\strlen{x})}$ possible certificates in turn,
+and accept if any certificate passes.
+That search takes exponential time,
+but it always [halts](models-of-computation.qmd#def-turing-machine).
+Decidability asks only whether a machine that always halts exists,
+not how long it takes.
+
+:::

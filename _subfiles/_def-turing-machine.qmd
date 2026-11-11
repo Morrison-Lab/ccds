@@ -1,0 +1,35 @@
+:::{#def-turing-machine}
+#### Turing machine
+
+A **Turing machine** with $k \ge 2$ tapes consists of:
+
+- $k$ tapes, each a sequence of cells that starts at a leftmost cell and goes on forever to the right,
+  with one head per tape that reads and writes one cell at a time.
+  The first tape is the *input tape*, which the machine can read but not write;
+  the last tape is the *output tape*;
+  any others are *work tapes*.
+- A finite *alphabet* $A$ of the symbols a cell can hold.
+  It includes the binary digits $0$ and $1$,
+  a blank symbol $\square$,
+  and a start symbol $\triangleright$.
+- A finite set $Q$ of *states*,
+  which includes a start state $q_{\text{start}}$
+  and a halting state $q_{\text{halt}}$.
+- A *transition function*,
+  a map from $Q \times A^k$ to $Q \times A^{k - 1} \times \set{\text{L}, \text{S}, \text{R}}^k$.
+
+The machine starts in state $q_{\text{start}}$ with every head on its tape's leftmost cell.
+Each tape holds $\triangleright$ in its leftmost cell and blanks after it,
+except that the input tape holds the input $x \in \set{0, 1}^*$ right after the $\triangleright$.
+In one *step*, the machine reads its state and the $k$ symbols under its heads,
+and the transition function gives a new state,
+a symbol to write on each tape but the input tape,
+and a move for each head:
+one cell left (L), stay (S), or one cell right (R).
+A head told to move left from the leftmost cell stays where it is.
+The machine *halts* when it enters $q_{\text{halt}}$,
+and its *output* is then the string of binary digits on the output tape,
+read from the cell after $\triangleright$ up to the first symbol that is not $0$ or $1$
+[@arora2009computational, section 1.2].
+
+:::

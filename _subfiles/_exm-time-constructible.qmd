@@ -1,0 +1,15 @@
+:::{#exm-time-constructible}
+#### Common time-constructible functions
+
+Four common examples, $n$, $n \ceil{\log_2 (n + 1)}$, $n^2$, and $2^n$, are all
+[time-constructible](#def-time-constructible) [@arora2009computational, section 1.3].
+A machine that is allowed $T(n)$ steps on inputs of length $n$
+can, when $T$ is time-constructible,
+first write $T(n)$ on a work tape
+and then use it as a clock that stops a computation after $T(n)$ of its steps.
+The functions that bound [running times](p-and-np.qmd#def-running-time) in these notes are all of this kind.
+Time-constructibility rules out functions such as $\ceil{\log_2 (n + 1)}$,
+which is smaller than $n$ once $n \ge 3$,
+so a machine cannot even read its whole input in that many steps.
+
+:::

@@ -1,0 +1,13 @@
+:::{#def-pair-encoding}
+#### Pair encoding
+
+Let $w$ and $x$ be binary strings.
+Their **pair encoding** $\angb{w, x}$ is the binary string made of
+each digit of $w$ written twice,
+then $01$,
+then $x$.
+A machine can recover $w$ and $x$ from $\angb{w, x}$
+by reading two digits at a time until it reads $01$.
+@arora2009computational [section 0.1] use a variant that also doubles the digits of $x$.
+
+:::

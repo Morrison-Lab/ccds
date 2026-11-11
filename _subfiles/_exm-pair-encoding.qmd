@@ -1,0 +1,14 @@
+:::{#exm-pair-encoding}
+#### Encoding the pair $10$ and $0$
+
+The [pair encoding](#def-pair-encoding) of $w = 10$ and $x = 0$ is
+
+$$\angb{10, 0} = 1100010.$$
+
+It consists of $11$ and $00$ for the two digits of $w$,
+then $01$,
+then the single digit of $x$.
+Reading two digits at a time gives $11$, $00$, and then $01$,
+which marks the end of $w$.
+
+:::

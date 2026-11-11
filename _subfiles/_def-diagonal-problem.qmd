@@ -1,0 +1,15 @@
+:::{#def-diagonal-problem}
+#### The diagonal problem
+
+The **diagonal problem** UC is the [decision problem](p-and-np.qmd#def-decision-problem)
+whose yes inputs are the strings $w$ such that
+the machine $M_w$ that $w$ [describes](models-of-computation.qmd#def-tm-description),
+run on its own [description](models-of-computation.qmd#def-tm-description) $w$,
+does not [halt](models-of-computation.qmd#def-turing-machine) with [output](models-of-computation.qmd#def-turing-machine) $1$:
+
+$$\text{UC} \eqdef \set{w \in \set{0, 1}^* : M_w(w) \ne 1},$$
+
+where $M_w(w) \ne 1$ includes the case that $M_w$ never halts on $w$
+[@arora2009computational, section 1.5].
+
+:::

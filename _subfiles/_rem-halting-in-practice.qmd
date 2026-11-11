@@ -1,0 +1,18 @@
+::: {#rem-halting-in-practice}
+#### Undecidability in practice
+
+[Turing machines](models-of-computation.qmd#def-turing-machine) can simulate programs in ordinary programming languages
+([the Church-Turing thesis](models-of-computation.qmd#rem-church-turing)),
+so @thm-halting-undecidable says that no program can check, for every program and input,
+whether that program finishes.
+A job scheduler that runs users' model-fitting code cannot predict which jobs will loop forever,
+so it stops jobs with a time limit instead.
+Tools that always finish and check code for infinite loops exist,
+but on some programs each one must answer "unknown",
+miss a loop,
+or flag a program that does [halt](models-of-computation.qmd#def-turing-machine).
+The proof that [Kolmogorov complexity](kolmogorov-complexity.qmd#thm-kolmogorov-uncomputable)
+cannot be computed is a second example of an uncomputable function,
+proved by a different argument.
+
+:::

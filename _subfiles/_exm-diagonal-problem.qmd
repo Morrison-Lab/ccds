@@ -1,0 +1,13 @@
+:::{#exm-diagonal-problem}
+#### Machines in and out of the diagonal problem
+
+If $w$ [describes](models-of-computation.qmd#def-tm-description) a machine that [outputs](models-of-computation.qmd#def-turing-machine) $1$ on every input,
+then $M_w(w) = 1$, so $w$ is not in [UC](#def-diagonal-problem).
+If $w$ describes a machine that outputs $0$ on every input,
+or one that runs forever on every input,
+then $w$ is in UC.
+If $w$ describes the palindrome machine of
+[the palindrome example](models-of-computation.qmd#exm-palindrome-machine),
+then $w$ is in UC exactly when $w$ is not itself a palindrome.
+
+:::

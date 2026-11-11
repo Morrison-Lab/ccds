@@ -1,0 +1,12 @@
+:::{#def-halting-problem}
+#### The halting problem
+
+The **halting problem** HALT is the [decision problem](p-and-np.qmd#def-decision-problem)
+
+$$\text{HALT} \eqdef \set{\angb{w, x} : M_w \text{ halts on input } x},$$
+
+where $\angb{w, x}$ is the [pair encoding](models-of-computation.qmd#def-pair-encoding) of $w$ and $x$,
+and $M_w$ is the machine that $w$ [describes](models-of-computation.qmd#def-tm-description)
+[@arora2009computational, section 1.5].
+
+:::

@@ -1,0 +1,10 @@
+:::{#exm-dtime}
+#### Palindromes and the class P
+
+The [palindrome machine](models-of-computation.qmd#exm-palindromes-linear-time)
+[runs in time](p-and-np.qmd#def-running-time) $3n + 4$,
+which is at most $7n$ for every $n \ge 1$ and so is $\asymub{n}$,
+so PAL is in $\text{DTIME}(n)$ ([time complexity class](#def-dtime)).
+[The class P](p-and-np.qmd#def-class-p) is the union of $\text{DTIME}(n^c)$ over all constants $c \ge 1$.
+
+:::

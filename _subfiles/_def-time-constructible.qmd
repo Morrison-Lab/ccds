@@ -1,0 +1,12 @@
+:::{#def-time-constructible}
+#### Time-constructible function
+
+A function $T$ from the nonnegative integers to the nonnegative integers is **time-constructible**
+if $T(n) \ge n$ for every $n$
+and some [Turing machine](#def-turing-machine) [computes](#def-tm-computes),
+in time $T(n)$,
+the function that maps each $x \in \set{0, 1}^*$
+to the binary representation of $T(\strlen{x})$
+[@arora2009computational, section 1.3].
+
+:::

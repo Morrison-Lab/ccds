@@ -2,7 +2,7 @@
 #### Kolmogorov complexity
 
 Fix a universal computer $U$:
-a Turing machine, or an interpreter for a programming language,
+a [Turing machine](models-of-computation.qmd#def-turing-machine), or an interpreter for a programming language,
 that reads a program $p$, a finite string of binary digits,
 and either runs forever or halts and outputs a binary string $U(p)$.
 Assume no program on which $U$ halts is a proper prefix of another,

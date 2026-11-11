@@ -1,0 +1,16 @@
+::: {#rem-universal-tm}
+#### Interpreters are universal machines
+
+A Python interpreter is a universal machine in the sense of @thm-universal-tm:
+one fixed program that runs any other program it is given as input.
+@arora2009computational [section 1.4] prove a version of @thm-universal-tm
+with $C \, T^2$ steps in place of $C \, T \log_2 T$,
+by an argument like that of @rem-tm-robustness-proof,
+and they prove the stated bound in section 1.7.
+The [Kolmogorov complexity](kolmogorov-complexity.qmd#def-kolmogorov-complexity)
+of a string is defined with a universal machine that,
+unlike the one of @thm-universal-tm,
+reads a single program,
+and [halts](#def-turing-machine) only on programs none of which is a prefix of another.
+
+:::

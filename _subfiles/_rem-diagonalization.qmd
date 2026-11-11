@@ -1,0 +1,14 @@
+::: {#rem-diagonalization}
+#### The diagonal argument
+
+Picture an infinite table with one row for each binary string $w$,
+one column for each binary string $x$,
+and the entry in row $w$ and column $x$ equal to $M_w(x)$,
+or to a mark for "runs forever".
+Each row lists everything one machine does.
+UC is built from the diagonal entries $M_w(w)$,
+and it disagrees with row $w$ in column $w$ for every $w$,
+so no row [decides](models-of-computation.qmd#def-tm-computes) it.
+@arora2009computational [chapter 3] use the same idea to prove the hierarchy theorems.
+
+:::
