@@ -1,0 +1,393 @@
+[
+  {
+    "objectID": "reductions.html",
+    "href": "reductions.html",
+    "title": "Reductions and NP-completeness",
+    "section": "",
+    "text": "A reduction turns every question about one problem into a question about another, so that a fast algorithm for the second gives one for the first. Reductions compare the difficulty of the problems in NP, and single out the hardest of them.",
+    "crumbs": [
+      "Hardness",
+      "Reductions and NP-completeness"
+    ]
+  },
+  {
+    "objectID": "reductions.html#sec-reductions",
+    "href": "reductions.html#sec-reductions",
+    "title": "Reductions and NP-completeness",
+    "section": "1 Polynomial-time reductions",
+    "text": "1 Polynomial-time reductions\n\n\n\n\n\n\n\n\nDefinition 1 (Polynomial-time reduction) A decision problem \\(L\\) reduces in polynomial time to a decision problem \\(L'\\), written \\(L \\le_p L'\\), if there is a function \\(f \\colon \\{0, 1\\}^* \\to \\{0, 1\\}^*\\), computable in polynomial time, such that for every \\(x \\in \\{0, 1\\}^*\\),\n\\[x \\in L \\quad \\text{if and only if} \\quad f(x) \\in L'\\]\n(Arora and Barak 2009, sec. 2.2).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 1 (Reductions carry polynomial-time algorithms back) If \\(L \\le_p L'\\) (Definition 1) and \\(L'\\) is in P, then \\(L\\) is in P.\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. Let \\(f\\) be the reduction. A big-O bound holds from some \\(n_0\\) on, and raising its constant to cover the finitely many lengths below \\(n_0\\) turns it into a bound for every length. So there are constants \\(a, b \\ge 1\\) and \\(c, d \\ge 0\\) such that, on inputs of every length \\(n \\ge 0\\), computing \\(f\\) takes at most \\(a (n + 1)^{c}\\) steps, and some algorithm decides \\(L'\\) within \\(b (n + 1)^{d}\\) steps.\nOn input \\(x\\) of length \\(n\\), compute \\(f(x)\\) and then decide whether \\(f(x) \\in L'\\). The answer is correct because \\(x \\in L\\) exactly when \\(f(x) \\in L'\\).\nEach step writes at most some fixed number \\(k\\) of output bits, so \\(|f(x)| \\le k a (n + 1)^{c}\\). Since \\((n + 1)^{c} \\ge 1\\),\n\\[\n\\begin{aligned}\n|f(x)| + 1\n&\\le k a (n + 1)^{c} + 1 \\\\\n&\\le (k a + 1) (n + 1)^{c}.\n\\end{aligned}\n\\]\nThe two stages together take at most\n\\[\n\\begin{aligned}\na (n + 1)^{c} + b \\mathopen{}\\left(|f(x)| + 1\\right)\\mathclose{}^{d}\n&\\le a (n + 1)^{c} + b \\mathopen{}\\left[(k a + 1) (n + 1)^{c}\\right]\\mathclose{}^{d} \\\\\n&= a (n + 1)^{c} + b (k a + 1)^{d} (n + 1)^{cd}\n\\end{aligned}\n\\]\nsteps, which is \\(O(n^{\\max(c, cd)})\\), a polynomial bound.\n\n\n\n\n\n\n\n\n\n\n\nTheorem 2 (Reductions compose) If \\(L \\le_p L'\\) and \\(L' \\le_p L''\\) (Definition 1), then \\(L \\le_p L''\\).\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. Let \\(f\\) reduce \\(L\\) to \\(L'\\) and \\(g\\) reduce \\(L'\\) to \\(L''\\). For every \\(x\\), \\(x \\in L\\) exactly when \\(f(x) \\in L'\\), which is exactly when \\(g(f(x)) \\in L''\\). Computing \\(f(x)\\) and then \\(g\\) of the result takes polynomial time, by the same count as in the proof of Theorem 1, with the algorithm for \\(g\\) in place of the algorithm for \\(L'\\). So \\(x \\mapsto g(f(x))\\) reduces \\(L\\) to \\(L''\\).",
+    "crumbs": [
+      "Hardness",
+      "Reductions and NP-completeness"
+    ]
+  },
+  {
+    "objectID": "reductions.html#sec-np-completeness",
+    "href": "reductions.html#sec-np-completeness",
+    "title": "Reductions and NP-completeness",
+    "section": "2 NP-completeness",
+    "text": "2 NP-completeness\n\n\n\n\n\n\n\n\nDefinition 2 (NP-hard and NP-complete) A decision problem \\(L'\\) is NP-hard if \\(L \\le_p L'\\) (Definition 1) for every decision problem \\(L\\) in NP. It is NP-complete if it is NP-hard and also in NP (Arora and Barak 2009, sec. 2.2).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 3 (One NP-hard problem in P puts all of NP in P) If any NP-hard problem (Definition 2) is in P, then every problem in NP is in P.\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. Let \\(L'\\) be NP-hard and in P, and let \\(L\\) be any problem in NP. Then \\(L \\le_p L'\\) by Definition 2, so \\(L\\) is in P by Theorem 1.\n\n\n\n\n\n\n\n\n\n\n\nTheorem 4 (New NP-complete problems from old) If \\(L\\) is NP-complete (Definition 2), \\(L \\le_p L'\\) (Definition 1), and \\(L'\\) is in NP, then \\(L'\\) is NP-complete.\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. \\(L'\\) is in NP by assumption. For any \\(L_0\\) in NP, \\(L_0 \\le_p L\\) because \\(L\\) is NP-hard, so \\(L_0 \\le_p L'\\) by Theorem 2. So \\(L'\\) is NP-hard, and hence NP-complete.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 3 (The satisfiability problem SAT) The decision problem SAT asks: given a Boolean formula built from variables with AND, OR and NOT, is there an assignment of true and false to its variables that makes the formula true?\n\n\n\n\n\n\n\n\n\n\n\nTheorem 5 (Cook–Levin theorem) SAT is NP-complete (Definition 2).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 6 (Independent set is NP-complete) INDSET is NP-complete (Definition 2) (Arora and Barak 2009, sec. 2.4).\n\n\n\n\n\n\n\n\n\n\n\nRemark 1 (Where NP-completeness comes from). Stephen Cook and Leonid Levin proved Theorem 5 independently in the early 1970s; Arora and Barak (2009, sec. 2.3) give a proof. Once one problem is known to be NP-complete, Theorem 4 gives others, one reduction at a time. Arora and Barak (2009, sec. 2.4) prove Theorem 6 this way, reducing a version of SAT to INDSET.",
+    "crumbs": [
+      "Hardness",
+      "Reductions and NP-completeness"
+    ]
+  },
+  {
+    "objectID": "reductions.html#sec-worked-reductions",
+    "href": "reductions.html#sec-worked-reductions",
+    "title": "Reductions and NP-completeness",
+    "section": "3 Worked reductions",
+    "text": "3 Worked reductions\n\n\n\n\n\n\n\n\nDefinition 4 (The clique problem CLIQUE) A clique in a graph is a set of vertices every two of which are joined by an edge. The decision problem CLIQUE asks: given a graph \\(G\\) and an integer \\(k \\ge 0\\), does \\(G\\) have a clique of \\(k\\) vertices?\n\n\n\n\n\n\n\n\n\n\n\nDefinition 5 (Complement of a graph) The complement \\(\\bar G\\) of a graph \\(G\\) has the same vertices as \\(G\\), and joins two distinct vertices exactly when \\(G\\) does not.\n\n\n\n\n\n\n\n\n\n\n\nExample 1 (From independent sets to cliques) A set \\(S\\) of vertices is independent in \\(G\\) exactly when no two vertices of \\(S\\) are joined in \\(G\\), which is exactly when every two vertices of \\(S\\) are joined in the complement \\(\\bar G\\), that is, when \\(S\\) is a clique in \\(\\bar G\\). So the function \\(f(G, k) = (\\bar G, k)\\) satisfies\n\\[\n(G, k) \\in \\text{INDSET}\n\\quad \\text{if and only if} \\quad\n(\\bar G, k) \\in \\text{CLIQUE}.\n\\]\nWith \\(m\\) vertices, computing \\(\\bar G\\) flips the \\(m(m - 1)\\) off-diagonal entries of the adjacency matrix, which takes \\(O(m^2)\\) steps. So INDSET \\(\\le_p\\) CLIQUE (Definition 1). CLIQUE is in NP, since a clique is its own certificate, as in the INDSET example. INDSET is NP-complete (Theorem 6), so CLIQUE is NP-complete too, by Theorem 4.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 6 (The vertex cover problem VERTEX-COVER) A vertex cover of a graph is a set of vertices that contains at least one end of every edge. The decision problem VERTEX-COVER asks: given a graph \\(G\\) with \\(m\\) vertices and an integer \\(k \\ge 0\\), does \\(G\\) have a vertex cover of at most \\(k\\) vertices?\n\n\n\n\n\n\n\n\n\n\n\nExercise 1 (From independent sets to vertex covers)  \n\nShow that a set \\(S\\) of vertices is independent if and only if the set \\(\\bar S\\) of the vertices not in \\(S\\) is a vertex cover.\nUse part 1 to give a polynomial-time reduction (Definition 1) from INDSET to VERTEX-COVER.\n\n\n\n\n\n\n\n\n\n\n\nSolutionSolution\n\n\n\n\n\n\nSolution 1. \n\n\\(S\\) fails to be independent exactly when some edge has both its ends in \\(S\\), which is exactly when some edge has no end in \\(\\bar S\\), that is, when \\(\\bar S\\) fails to be a vertex cover.\nMap \\((G, k)\\) to \\((G, m - k)\\) when \\(k \\le m\\), and to a fixed no-instance, such as a single edge with \\(k = 0\\), when \\(k &gt; m\\). If \\(G\\) has an independent set \\(S\\) of \\(k\\) vertices, then by part 1, \\(\\bar S\\) is a vertex cover of \\(m - k\\) vertices. If \\(G\\) has a vertex cover \\(C\\) of at most \\(m - k\\) vertices, then by part 1, \\(\\bar C\\) is independent with at least \\(k\\) vertices, and any \\(k\\) of them still form an independent set. So \\((G, k) \\in \\text{INDSET}\\) if and only if \\((G, m - k) \\in \\text{VERTEX-COVER}\\). The map copies \\(G\\) and computes \\(m - k\\), which takes polynomial time.",
+    "crumbs": [
+      "Hardness",
+      "Reductions and NP-completeness"
+    ]
+  },
+  {
+    "objectID": "reductions.html#sec-hardness-data-science",
+    "href": "reductions.html#sec-hardness-data-science",
+    "title": "Reductions and NP-completeness",
+    "section": "4 Hardness in data science",
+    "text": "4 Hardness in data science\n\n\n\n\n\n\n\n\nRemark 2 (Sparse regression is NP-hard). Best-subset selection looks for the regression with the fewest nonzero coefficients that fits the data to a given tolerance. Its decision version asks: given a matrix \\(\\mathbf{X}\\), a vector \\(\\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{y}}\\vphantom{y}}\\), a tolerance \\(\\epsilon\\) and an integer \\(k\\), is there a vector \\(\\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{\\beta}}\\vphantom{\\beta}}\\) with at most \\(k\\) nonzero entries and \\(\\|\\mathbf{X}\\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{\\beta}}\\vphantom{\\beta}}- \\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{y}}\\vphantom{y}}\\|_2 \\le \\epsilon\\)? Natarajan (1995) showed, by a reduction from an NP-complete problem, that this decision problem is NP-hard (Definition 2). An algorithm that finds a sparsest \\(\\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{\\beta}}\\vphantom{\\beta}}\\) would decide it, by checking whether that \\(\\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{\\beta}}\\vphantom{\\beta}}\\) has at most \\(k\\) nonzero entries. If such an algorithm ran in polynomial time, Theorem 3 would put every problem in NP into P, and since P is contained in NP, P would equal NP. That is one reason practical methods use greedy forward selection or replace the count of nonzero coefficients with a convex penalty, as the lasso does.",
+    "crumbs": [
+      "Hardness",
+      "Reductions and NP-completeness"
+    ]
+  },
+  {
+    "objectID": "reductions.html#references",
+    "href": "reductions.html#references",
+    "title": "Reductions and NP-completeness",
+    "section": "References",
+    "text": "References\n\n\nArora, Sanjeev, and Boaz Barak. 2009. Computational Complexity: A Modern Approach. Cambridge University Press. https://doi.org/10.1017/CBO9780511804090.\n\n\nNatarajan, B. K. 1995. “Sparse Approximate Solutions to Linear Systems.” SIAM Journal on Computing 24 (2): 227–34. https://doi.org/10.1137/S0097539792240406.",
+    "crumbs": [
+      "Hardness",
+      "Reductions and NP-completeness"
+    ]
+  },
+  {
+    "objectID": "models-of-computation.html",
+    "href": "models-of-computation.html",
+    "title": "Models of computation",
+    "section": "",
+    "text": "To say that a problem needs a certain number of steps, we must first fix what a step is. This page defines the Turing machine, the model of computation that complexity theory uses, and shows why the choice of model hardly matters: the variants of the model, and ordinary computers, simulate each other with at most a polynomial increase in running time. It ends with the universal machine, one Turing machine that can run every other. The asymptotic notation page defines the \\({O\\mathopen{}\\left(\\cdot\\right)\\mathclose{}}\\) notation used here.",
+    "crumbs": [
+      "Computability",
+      "Models of computation"
+    ]
+  },
+  {
+    "objectID": "models-of-computation.html#sec-turing-machines",
+    "href": "models-of-computation.html#sec-turing-machines",
+    "title": "Models of computation",
+    "section": "1 Turing machines",
+    "text": "1 Turing machines\n\n\n\n\n\n\n\n\nDefinition 1 (Turing machine) A Turing machine with \\(k \\ge 2\\) tapes consists of:\n\n\\(k\\) tapes, each a sequence of cells that starts at a leftmost cell and goes on forever to the right, with one head per tape that reads and writes one cell at a time. The first tape is the input tape, which the machine can read but not write; the last tape is the output tape; any others are work tapes.\nA finite alphabet \\(A\\) of the symbols a cell can hold. It includes the binary digits \\(0\\) and \\(1\\), a blank symbol \\(\\square\\), and a start symbol \\(\\triangleright\\).\nA finite set \\(Q\\) of states, which includes a start state \\(q_{\\text{start}}\\) and a halting state \\(q_{\\text{halt}}\\).\nA transition function, a map from \\(Q \\times A^k\\) to \\(Q \\times A^{k - 1} \\times {\\mathopen{}\\left\\{\\text{L}, \\text{S}, \\text{R}\\right\\}\\mathclose{}}^k\\).\n\nThe machine starts in state \\(q_{\\text{start}}\\) with every head on its tape’s leftmost cell. Each tape holds \\(\\triangleright\\) in its leftmost cell and blanks after it, except that the input tape holds the input \\(x \\in {\\mathopen{}\\left\\{0, 1\\right\\}\\mathclose{}}^*\\) right after the \\(\\triangleright\\). In one step, the machine reads its state and the \\(k\\) symbols under its heads, and the transition function gives a new state, a symbol to write on each tape but the input tape, and a move for each head: one cell left (L), stay (S), or one cell right (R). A head told to move left from the leftmost cell stays where it is. The machine halts when it enters \\(q_{\\text{halt}}\\), and its output is then the string of binary digits on the output tape, read from the cell after \\(\\triangleright\\) up to the first symbol that is not \\(0\\) or \\(1\\) (Arora and Barak 2009, sec. 1.2).\n\n\n\n\n\n\n\n\n\n\n\nExample 1 (A machine that checks for palindromes) A binary string is a palindrome if it reads the same backward as forward, like \\(0110\\) or \\(10101\\). A Turing machine with three tapes (input, one work tape, and output) can check whether its input \\(x\\) is a palindrome in three phases (Arora and Barak 2009, example 1.1):\n\nCopy: move the input head and the work head right together, writing each symbol of \\(x\\) onto the work tape, until the input head reaches the blank after \\(x\\). The first step also moves the output head right, off \\(\\triangleright\\).\nRewind: move the input head left until it reads \\(\\triangleright\\), then one cell right, onto the first symbol of \\(x\\). Move the work head one cell left, onto the last symbol of the copy.\nCompare: move the input head right and the work head left together. If the two heads ever read different symbols, write \\(0\\) on the output tape and halt. If the input head reaches the blank after \\(x\\) without a mismatch, write \\(1\\) and halt.\n\nOn the input \\(0110\\), the compare phase reads the pairs \\((0, 0)\\), \\((1, 1)\\), \\((1, 1)\\), and \\((0, 0)\\), finds no mismatch, and outputs \\(1\\). On \\(0111\\) it reads \\((0, 1)\\) first and outputs \\(0\\). Each phase is a few states of the machine, and each state of a phase checks which symbols the heads read to decide whether to stay in the phase or move to the next.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 2 (Computing a function) Let \\(f\\) be a function from \\({\\mathopen{}\\left\\{0, 1\\right\\}\\mathclose{}}^*\\) to \\({\\mathopen{}\\left\\{0, 1\\right\\}\\mathclose{}}^*\\). A Turing machine \\(M\\) computes \\(f\\) if \\(M\\) halts on every input \\(x \\in {\\mathopen{}\\left\\{0, 1\\right\\}\\mathclose{}}^*\\) with output \\(f(x)\\). Write \\(M(x)\\) for the output of \\(M\\) on input \\(x\\). A Turing machine decides a decision problem \\(L\\) exactly when it computes the function that is \\(1\\) on \\(L\\) and \\(0\\) off it (Arora and Barak 2009, sec. 1.2).\n\n\n\n\n\n\n\n\n\n\n\nExample 2 (Palindromes in linear time) Let PAL be the decision problem whose yes inputs are the palindromes. The machine of Example 1 computes the function that is \\(1\\) on palindromes and \\(0\\) on other strings, so it decides PAL. On an input of length \\(n\\), the copy phase takes \\(n + 1\\) steps, the rewind phase at most \\(n + 2\\), and the compare phase at most \\(n + 1\\), so it runs in time \\(3n + 4\\), which is \\({O\\mathopen{}\\left(n\\right)\\mathclose{}}\\), and PAL is in P.\n\n\n\n\n\n\n\n\n\n\n\nRemark 1 (Steps and running time). The running time of a Turing machine counts the steps of Definition 1, one application of the transition function each. One step moves each head by at most one cell, so reaching a cell \\(m\\) cells away takes at least \\(m\\) steps. An ordinary computer can jump to any memory address in one operation, so a Turing machine can need more steps than an ordinary program for the same task. Theorem 1 and Remark 3 explain why that gap does not change which problems have polynomial-time algorithms.",
+    "crumbs": [
+      "Computability",
+      "Models of computation"
+    ]
+  },
+  {
+    "objectID": "models-of-computation.html#sec-model-robustness",
+    "href": "models-of-computation.html#sec-model-robustness",
+    "title": "Models of computation",
+    "section": "2 Robustness of the model",
+    "text": "2 Robustness of the model\n\n\n\n\n\n\n\n\nDefinition 3 (Time-constructible function) A function \\(T\\) from the nonnegative integers to the nonnegative integers is time-constructible if \\(T(n) \\ge n\\) for every \\(n\\) and some Turing machine computes, in time \\(T(n)\\), the function that maps each \\(x \\in {\\mathopen{}\\left\\{0, 1\\right\\}\\mathclose{}}^*\\) to the binary representation of \\(T({\\mathopen{}\\left|x\\right|\\mathclose{}})\\) (Arora and Barak 2009, sec. 1.3).\n\n\n\n\n\n\n\n\n\n\n\nExample 3 (Common time-constructible functions) Four common examples, \\(n\\), \\(n {\\mathopen{}\\left\\lceil\\log_2 (n + 1)\\right\\rceil\\mathclose{}}\\), \\(n^2\\), and \\(2^n\\), are all time-constructible (Arora and Barak 2009, sec. 1.3). A machine that is allowed \\(T(n)\\) steps on inputs of length \\(n\\) can, when \\(T\\) is time-constructible, first write \\(T(n)\\) on a work tape and then use it as a clock that stops a computation after \\(T(n)\\) of its steps. The functions that bound running times in these notes are all of this kind. Time-constructibility rules out functions such as \\({\\mathopen{}\\left\\lceil\\log_2 (n + 1)\\right\\rceil\\mathclose{}}\\), which is smaller than \\(n\\) once \\(n \\ge 3\\), so a machine cannot even read its whole input in that many steps.\n\n\n\n\n\n\n\n\n\n\n\nTheorem 1 (The details of the model change running time only polynomially) Let \\(f\\) be a function from \\({\\mathopen{}\\left\\{0, 1\\right\\}\\mathclose{}}^*\\) to \\({\\mathopen{}\\left\\{0, 1\\right\\}\\mathclose{}}^*\\), and let \\(T\\) be time-constructible. Suppose a Turing machine \\(M\\) with \\(k\\) tapes and an alphabet of \\(s\\) symbols computes \\(f\\) in time \\(T(n)\\). Then:\n\nA Turing machine with \\(k\\) tapes and the alphabet \\({\\mathopen{}\\left\\{0, 1, \\square, \\triangleright\\right\\}\\mathclose{}}\\) computes \\(f\\) in time \\({O\\mathopen{}\\left(T(n) \\log_2 s\\right)\\mathclose{}}\\).\nA single-tape machine computes \\(f\\) in time \\({O\\mathopen{}\\left(T(n)^2\\right)\\mathclose{}}\\).\n\nA single-tape machine is the same as a Turing machine, except that it has one tape, which starts with \\(\\triangleright\\) followed by the input, which it can read and write, and which holds the output when it halts. The constant in part 2 depends on \\(k\\), and neither constant depends on \\(f\\), \\(T\\), or \\(n\\) (Arora and Barak 2009, sec. 1.3).\n\n\n\n\n\n\n\n\n\n\n\nRemark 2 (Simulations behind Theorem 1). Arora and Barak (2009, sec. 1.3) prove both parts by simulation. For part 1, the new machine writes each symbol of \\(M\\)’s alphabet as a block of about \\(\\log_2 s\\) binary digits, and it carries out one step of \\(M\\) by reading and rewriting one block on each tape. For part 2, the single tape holds the contents of all \\(k\\) tapes interleaved, with a mark at each head’s position. To carry out one step of \\(M\\), the machine sweeps along the used part of the tape to read the marked symbols, and sweeps back to update them. After \\(t\\) steps, \\(M\\) has used at most \\(\\max(n, t) + 1\\) cells of each tape, which is \\({O\\mathopen{}\\left(T(n)\\right)\\mathclose{}}\\) because \\(T(n) \\ge n\\), so each sweep takes \\({O\\mathopen{}\\left(T(n)\\right)\\mathclose{}}\\) steps, and the \\(T(n)\\) steps of \\(M\\) take \\({O\\mathopen{}\\left(T(n)^2\\right)\\mathclose{}}\\) in all.\n\n\n\n\n\n\n\n\n\n\n\nRemark 3 (The Church-Turing thesis). Every model of computation that has been proposed and that can be built, from programming languages to random-access machines, can be simulated by a Turing machine. The Church-Turing thesis claims that every function a physical device can compute, a Turing machine can compute. It is a claim about the physical world, not a theorem. A stronger version, which quantum computers may refute, says the simulation costs at most a polynomial increase in running time (Arora and Barak 2009, sec. 1.6). Under that version, the class P is the same whichever reasonable model it is defined with, as Theorem 1 shows for the variations of the Turing machine itself.",
+    "crumbs": [
+      "Computability",
+      "Models of computation"
+    ]
+  },
+  {
+    "objectID": "models-of-computation.html#sec-universal-machine",
+    "href": "models-of-computation.html#sec-universal-machine",
+    "title": "Models of computation",
+    "section": "3 The universal machine",
+    "text": "3 The universal machine\n\n\n\n\n\n\n\n\nDefinition 4 (Machines as strings) A Turing machine is a finite object: its states, its alphabet, and the table of its transition function. So it can be written as a binary string, its description. Fix one such encoding, with two conventions (Arora and Barak 2009, sec. 1.4):\n\nEvery binary string \\(w\\) describes some Turing machine, written \\(M_w\\). A string that is not a valid encoding describes one fixed machine.\nEvery Turing machine has infinitely many descriptions, because the encoding allows padding: if \\(w\\) describes \\(M\\), so do longer strings that extend \\(w\\) with symbols the decoder ignores.\n\n\n\n\n\n\n\n\n\n\n\n\nExample 4 (A program file is a description) A Python script saved to disk is a sequence of bytes, so it is a binary string, and the Python interpreter reads that string as a program, much as Definition 4 reads a string as a Turing machine. Appending a comment line to the script gives a longer string that describes the same program, which is the padding convention of Definition 4. A file that is not valid Python makes the interpreter stop with a syntax error, which plays the role of the fixed machine that invalid strings describe, for instance one that halts at once.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 5 (Pair encoding) Let \\(w\\) and \\(x\\) be binary strings. Their pair encoding \\(\\mathopen{}\\left\\langle w, x\\right\\rangle\\mathclose{}\\) is the binary string made of each digit of \\(w\\) written twice, then \\(01\\), then \\(x\\). A machine can recover \\(w\\) and \\(x\\) from \\(\\mathopen{}\\left\\langle w, x\\right\\rangle\\mathclose{}\\) by reading two digits at a time until it reads \\(01\\). Arora and Barak (2009, sec. 0.1) use a variant that also doubles the digits of \\(x\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 5 (Encoding the pair \\(10\\) and \\(0\\)) The pair encoding of \\(w = 10\\) and \\(x = 0\\) is\n\\[\\mathopen{}\\left\\langle 10, 0\\right\\rangle\\mathclose{} = 1100010.\\]\nIt consists of \\(11\\) and \\(00\\) for the two digits of \\(w\\), then \\(01\\), then the single digit of \\(x\\). Reading two digits at a time gives \\(11\\), \\(00\\), and then \\(01\\), which marks the end of \\(w\\).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 2 (A universal Turing machine) There is a Turing machine \\(U\\) that runs any other machine from its description. Given the pair encoding \\(\\mathopen{}\\left\\langle w, x\\right\\rangle\\mathclose{}\\) of binary strings \\(w\\) and \\(x\\) as input, \\(U\\) outputs \\(M_w(x)\\) whenever \\(M_w\\) halts on \\(x\\), and runs forever when \\(M_w\\) does not. If \\(M_w\\) halts on \\(x\\) within \\(T\\) steps, then \\(U\\) halts within \\(C \\, T \\log_2 T\\) steps, where \\(C\\) depends on \\(M_w\\) but not on \\(x\\) (Arora and Barak 2009, sec. 1.4).\n\n\n\n\n\n\n\n\n\n\n\nRemark 4 (Interpreters are universal machines). A Python interpreter is a universal machine in the sense of Theorem 2: one fixed program that runs any other program it is given as input. Arora and Barak (2009, sec. 1.4) prove a version of Theorem 2 with \\(C \\, T^2\\) steps in place of \\(C \\, T \\log_2 T\\), by an argument like that of Remark 2, and they prove the stated bound in section 1.7. The Kolmogorov complexity of a string is defined with a universal machine that, unlike the one of Theorem 2, reads a single program, and halts only on programs none of which is a prefix of another.",
+    "crumbs": [
+      "Computability",
+      "Models of computation"
+    ]
+  },
+  {
+    "objectID": "models-of-computation.html#references",
+    "href": "models-of-computation.html#references",
+    "title": "Models of computation",
+    "section": "References",
+    "text": "References\n\n\nArora, Sanjeev, and Boaz Barak. 2009. Computational Complexity: A Modern Approach. Cambridge University Press. https://doi.org/10.1017/CBO9780511804090.",
+    "crumbs": [
+      "Computability",
+      "Models of computation"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Computational Complexity for Data Science",
+    "section": "",
+    "text": "Computational complexity asks how much time, memory or randomness a problem needs, whatever algorithm solves it. Data science meets it whenever fitting a model exactly turns out to be computationally hard, which is one reason practical methods use greedy search or a convex surrogate loss.\nThese notes collect the computational complexity that data science courses use. They are new. The pages written so far are:\n\nAsymptotic notation: big-O, big-Omega and big-Theta, and what it means for a computation to cost \\(O(D)\\)\nModels of computation: Turing machines, why the details of the model hardly matter, and the universal machine that runs every other machine\nComputability: problems that no algorithm decides, such as the halting problem, and the theorem that more time decides more problems\nP and NP: decision problems, polynomial running time, and the classes P and NP\nReductions and NP-completeness: polynomial-time reductions, NP-complete problems, and why sparse regression is computationally hard\nKolmogorov complexity: the length of the shortest program that prints a string, why most strings are incompressible and no program computes it, and how its average per symbol approaches Shannon entropy\n\nThe planned topics still to come are:\n\nspace complexity\nrandomized computation\ncommunication and information complexity\n\nInformation theory has its own library, Information Theory for Data Science. Results that connect the two live in the library that holds their main statement, and the other links to them."
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Computational Complexity for Data Science",
+    "section": "",
+    "text": "Computational complexity asks how much time, memory or randomness a problem needs, whatever algorithm solves it. Data science meets it whenever fitting a model exactly turns out to be computationally hard, which is one reason practical methods use greedy search or a convex surrogate loss.\nThese notes collect the computational complexity that data science courses use. They are new. The pages written so far are:\n\nAsymptotic notation: big-O, big-Omega and big-Theta, and what it means for a computation to cost \\(O(D)\\)\nModels of computation: Turing machines, why the details of the model hardly matter, and the universal machine that runs every other machine\nComputability: problems that no algorithm decides, such as the halting problem, and the theorem that more time decides more problems\nP and NP: decision problems, polynomial running time, and the classes P and NP\nReductions and NP-completeness: polynomial-time reductions, NP-complete problems, and why sparse regression is computationally hard\nKolmogorov complexity: the length of the shortest program that prints a string, why most strings are incompressible and no program computes it, and how its average per symbol approaches Shannon entropy\n\nThe planned topics still to come are:\n\nspace complexity\nrandomized computation\ncommunication and information complexity\n\nInformation theory has its own library, Information Theory for Data Science. Results that connect the two live in the library that holds their main statement, and the other links to them."
+  },
+  {
+    "objectID": "index.html#starting-materials",
+    "href": "index.html#starting-materials",
+    "title": "Computational Complexity for Data Science",
+    "section": "Starting materials",
+    "text": "Starting materials\nThese notes are written fresh, but they draw on the following books and Stanford course pages.\n\nSanjeev Arora and Boaz Barak, Computational Complexity: A Modern Approach, the main starting point for complexity theory.\nCS154: Introduction to the Theory of Computation (Omer Reingold and Li-Yang Tan), which covers automata, computability and complexity, using Michael Sipser’s Introduction to the Theory of Computation, with lecture slides and videos.\nCS154: Introduction to Automata and Complexity Theory (Spring 2009, with Rajeev Motwani among the course staff), with handouts, homework and a reading list.\nIntroduction to Automata Theory, Languages, and Computation, Jeff Ullman’s home page for the book, which is the textbook the 2009 CS154 page links. It has solutions to starred exercises, errata, slides, and past CS154 course materials.\nCS254: Computational Complexity (Li-Yang Tan), which covers space complexity, the polynomial hierarchy, randomized and non-uniform computation, and interactive proofs. It uses Arora and Barak and Avi Wigderson’s Mathematics and Computation, and links a reading for each lecture."
+  },
+  {
+    "objectID": "index.html#using-these-notes-in-another-site",
+    "href": "index.html#using-these-notes-in-another-site",
+    "title": "Computational Complexity for Data Science",
+    "section": "Using these notes in another site",
+    "text": "Using these notes in another site\nCourse sites link to these pages by URL; they do not include this repository as a git submodule. A host site that keeps a copy of this repository at its root, named cds, can still include fragments with paths that start with cds/. This site includes its own fragments the same way, through a cds symlink that points at the repository root.\nQuarto resolves @id cross-references only within one rendered page, so a host site that links to a result here uses an explicit link to the page and anchor."
+  },
+  {
+    "objectID": "asymptotic-notation.html",
+    "href": "asymptotic-notation.html",
+    "title": "Asymptotic notation",
+    "section": "",
+    "text": "The cost of an algorithm depends on the size \\(n\\) of its input. Asymptotic notation compares how two costs grow as \\(n\\) grows, ignoring constant factors and small inputs.",
+    "crumbs": [
+      "Measuring cost",
+      "Asymptotic notation"
+    ]
+  },
+  {
+    "objectID": "asymptotic-notation.html#sec-asymptotic-bounds",
+    "href": "asymptotic-notation.html#sec-asymptotic-bounds",
+    "title": "Asymptotic notation",
+    "section": "1 Upper, lower and tight bounds",
+    "text": "1 Upper, lower and tight bounds\n\n\n\n\n\n\n\n\nDefinition 1 (Big-O notation) Let \\(f\\) and \\(g\\) be functions from the positive integers to \\([0, \\infty)\\). We write \\(f(n) = O(g(n))\\) if there are a constant \\(c &gt; 0\\) and an integer \\(n_0\\) such that\n\\[f(n) \\le c \\, g(n) \\quad \\text{for every } n \\ge n_0.\\]\nThat is, \\(f\\) grows no faster than a constant multiple of \\(g\\) once \\(n\\) is large enough. This is the definition of Arora and Barak (2009, sec. 0.3).\n\n\n\n\n\n\n\n\n\n\n\nDefinition 2 (Big-Omega notation) For \\(f\\) and \\(g\\) as in Definition 1, we write \\(f(n) = \\Omega(g(n))\\) if there are a constant \\(c &gt; 0\\) and an integer \\(n_0\\) such that\n\\[f(n) \\ge c \\, g(n) \\quad \\text{for every } n \\ge n_0.\\]\nDividing by \\(c\\) shows that this holds exactly when \\(g(n) = O(f(n))\\), with constant \\(1/c\\).\n\n\n\n\n\n\n\n\n\n\n\nDefinition 3 (Big-Theta notation) For \\(f\\) and \\(g\\) as in Definition 1, we write \\(f(n) = \\Theta(g(n))\\) if both \\(f(n) = O(g(n))\\) (Definition 1) and \\(f(n) = \\Omega(g(n))\\) (Definition 2). Then \\(f\\) and \\(g\\) grow at the same rate, up to constant factors.\n\n\n\n\n\n\n\n\n\n\n\nRemark 1 (The equals sign is one-way). \\(O(g(n))\\) stands for a set of functions, and \\(f(n) = O(g(n))\\) says that \\(f\\) belongs to it. So \\(n = O(n^2)\\) is true, but \\(n^2 = O(n)\\) is false, and the statement cannot be read from right to left. Cormen et al. (2009, sec. 3.1) reads the notation this way.",
+    "crumbs": [
+      "Measuring cost",
+      "Asymptotic notation"
+    ]
+  },
+  {
+    "objectID": "asymptotic-notation.html#sec-asymptotic-dominance",
+    "href": "asymptotic-notation.html#sec-asymptotic-dominance",
+    "title": "Asymptotic notation",
+    "section": "2 Dominance",
+    "text": "2 Dominance\n\n\n\n\n\n\n\nDefinition 4 (Little-o notation (dominates)) Let \\(f\\) and \\(g\\) be functions from the positive integers to \\([0, \\infty)\\) with \\(g(n) &gt; 0\\) for every \\(n\\). We write \\(f(n) = o(g(n))\\) if, for every constant \\(\\varepsilon&gt; 0\\), there is an integer \\(n_0\\) such that\n\\[f(n) \\le \\varepsilon\\, g(n) \\quad \\text{for every } n \\ge n_0.\\]\nThat is, \\(f\\) is eventually smaller than any fixed fraction of \\(g\\), which is the strict counterpart of Definition 1. In this case we also say that \\(g(n)\\) dominates \\(f(n)\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 1  \n\n\nA cubic dominates a quadratic\nLet \\(f(n) = n^2\\) and \\(g(n) = n^3\\). Let \\(\\varepsilon&gt; 0\\). Choose an integer \\(n_0 \\ge 1/\\varepsilon\\). For every \\(n \\ge n_0\\) we have \\(1/n \\le 1/n_0 \\le \\varepsilon\\), so\n\\[\nf(n) = n^2 = \\frac{1}{n} \\, n^3 \\le \\varepsilon\\, n^3 = \\varepsilon\\, g(n).\n\\]\nHence \\(n^2 = o(n^3)\\) by Definition 4, so \\(n^3\\) dominates \\(n^2\\).",
+    "crumbs": [
+      "Measuring cost",
+      "Asymptotic notation"
+    ]
+  },
+  {
+    "objectID": "asymptotic-notation.html#sec-asymptotic-examples",
+    "href": "asymptotic-notation.html#sec-asymptotic-examples",
+    "title": "Asymptotic notation",
+    "section": "3 Examples",
+    "text": "3 Examples\n\n\n\n\n\n\n\n\nExample 2 (A quadratic is \\(O(n^2)\\) but not \\(O(n)\\)) Let \\(f(n) = 3n^2 + 5n\\).\nFor \\(n \\ge 5\\), we have \\(5n \\le n \\cdot n = n^2\\), so\n\\[\n\\begin{aligned}\nf(n)\n&= 3n^2 + 5n \\\\\n&\\le 3n^2 + n^2 \\\\\n&= 4n^2.\n\\end{aligned}\n\\]\nSo \\(f(n) = O(n^2)\\), with \\(c = 4\\) and \\(n_0 = 5\\) in Definition 1. Since \\(f(n) \\ge 3n^2\\) for every \\(n\\), also \\(f(n) = \\Omega(n^2)\\) (Definition 2), and so \\(f(n) = \\Theta(n^2)\\) (Definition 3).\nBut \\(f(n)\\) is not \\(O(n)\\). If it were, there would be \\(c &gt; 0\\) and \\(n_0\\) with \\(3n^2 + 5n \\le c \\, n\\) for every \\(n \\ge n_0\\). Dividing both sides by \\(n &gt; 0\\) gives \\(3n + 5 \\le c\\) for every \\(n \\ge n_0\\), which fails for any \\(n\\) larger than both \\(n_0\\) and \\((c - 5)/3\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 3 (Counting the operations in an inner product) The inner product of two vectors \\(\\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{x}}\\vphantom{x}}, \\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{z}}\\vphantom{z}}\\in \\mathbb{R}^D\\) is\n\\[\\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{x}}\\vphantom{x}}^\\top \\mathord{\\smash[b]{\\underset{\\raise.3ex\\hbox{$\\scriptstyle\\sim$}}{z}}\\vphantom{z}}= x_1 z_1 + x_2 z_2 + \\cdots + x_D z_D.\\]\nComputing it takes \\(D\\) multiplications, one for each product \\(x_d z_d\\), and \\(D - 1\\) additions to sum the \\(D\\) products: \\(2D - 1\\) arithmetic operations in all. Since \\(2D - 1 \\le 2D\\) for every \\(D \\ge 1\\), the cost is \\(O(D)\\), with \\(D\\) in the role of \\(n\\), \\(c = 2\\) and \\(n_0 = 1\\) in Definition 1. Since \\(2D - 1 \\ge D\\) for every \\(D \\ge 1\\), it is also \\(\\Omega(D)\\) (Definition 2), so it is \\(\\Theta(D)\\) (Definition 3). When a machine learning text says an inner product “costs \\(O(D)\\)”, it means this count of operations, up to a constant factor.",
+    "crumbs": [
+      "Measuring cost",
+      "Asymptotic notation"
+    ]
+  },
+  {
+    "objectID": "asymptotic-notation.html#references",
+    "href": "asymptotic-notation.html#references",
+    "title": "Asymptotic notation",
+    "section": "References",
+    "text": "References\n\n\nArora, Sanjeev, and Boaz Barak. 2009. Computational Complexity: A Modern Approach. Cambridge University Press. https://doi.org/10.1017/CBO9780511804090.\n\n\nCormen, Thomas H., Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein. 2009. Introduction to Algorithms. 3rd ed. MIT Press.",
+    "crumbs": [
+      "Measuring cost",
+      "Asymptotic notation"
+    ]
+  },
+  {
+    "objectID": "computability.html",
+    "href": "computability.html",
+    "title": "Computability",
+    "section": "",
+    "text": "Some problems have no algorithm at all, however much time is allowed. No Turing machine decides whether a program halts. The proof uses an argument called diagonalization, and the same argument shows that more time lets machines decide more problems. These results build on the models of computation page, which defines Turing machines, their descriptions as strings, and the universal machine.",
+    "crumbs": [
+      "Computability",
+      "Computability"
+    ]
+  },
+  {
+    "objectID": "computability.html#sec-decidable",
+    "href": "computability.html#sec-decidable",
+    "title": "Computability",
+    "section": "1 Decidable problems",
+    "text": "1 Decidable problems\n\n\n\n\n\n\n\n\nDefinition 1 (Decidable problem) A decision problem \\(L\\) is decidable if some Turing machine decides it: the machine halts on every input \\(x\\), with output \\(1\\) if \\(x \\in L\\) and \\(0\\) if \\(x \\notin L\\). A problem that no Turing machine decides is undecidable (Arora and Barak 2009, sec. 1.5).\n\n\n\n\n\n\n\n\n\n\n\nExample 1 (Decidable problems from P and NP) The palindromes are decidable, because the machine of the palindrome example decides them. INDSET is decidable too, even though no polynomial-time algorithm for it is known: it is in NP, so a machine can run its verifier, with certificate length \\(q\\) as in the definition of NP, on each of the \\(2^{q({\\mathopen{}\\left|x\\right|\\mathclose{}})}\\) possible certificates in turn, and accept if any certificate passes. That search takes exponential time, but it always halts. Decidability asks only whether a machine that always halts exists, not how long it takes.",
+    "crumbs": [
+      "Computability",
+      "Computability"
+    ]
+  },
+  {
+    "objectID": "computability.html#sec-diagonal-problem",
+    "href": "computability.html#sec-diagonal-problem",
+    "title": "Computability",
+    "section": "2 An undecidable problem",
+    "text": "2 An undecidable problem\n\n\n\n\n\n\n\n\nDefinition 2 (The diagonal problem) The diagonal problem UC is the decision problem whose yes inputs are the strings \\(w\\) such that the machine \\(M_w\\) that \\(w\\) describes, run on its own description \\(w\\), does not halt with output \\(1\\):\n\\[\\text{UC} \\stackrel{\\text{def}}{=}{\\mathopen{}\\left\\{w \\in {\\mathopen{}\\left\\{0, 1\\right\\}\\mathclose{}}^* : M_w(w) \\ne 1\\right\\}\\mathclose{}},\\]\nwhere \\(M_w(w) \\ne 1\\) includes the case that \\(M_w\\) never halts on \\(w\\) (Arora and Barak 2009, sec. 1.5).\n\n\n\n\n\n\n\n\n\n\n\nExample 2 (Machines in and out of the diagonal problem) If \\(w\\) describes a machine that outputs \\(1\\) on every input, then \\(M_w(w) = 1\\), so \\(w\\) is not in UC. If \\(w\\) describes a machine that outputs \\(0\\) on every input, or one that runs forever on every input, then \\(w\\) is in UC. If \\(w\\) describes the palindrome machine of the palindrome example, then \\(w\\) is in UC exactly when \\(w\\) is not itself a palindrome.\n\n\n\n\n\n\n\n\n\n\n\nTheorem 1 (The diagonal problem is undecidable) The diagonal problem UC is undecidable (Arora and Barak 2009, sec. 1.5).\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. Suppose a Turing machine \\(M\\) decides UC, and let \\(w\\) be a description of \\(M\\), so that \\(M_w = M\\). Then \\(M\\) halts on \\(w\\) with output \\(1\\) or \\(0\\).\n\nIf \\(M(w) = 1\\), then \\(w \\in \\text{UC}\\), because \\(M\\) decides UC. By Definition 2, \\(w \\in \\text{UC}\\) means \\(M_w(w) \\ne 1\\), that is, \\(M(w) \\ne 1\\), a contradiction.\nIf \\(M(w) = 0\\), then \\(w \\notin \\text{UC}\\), because \\(M\\) decides UC. By Definition 2, \\(w \\notin \\text{UC}\\) means \\(M_w(w) = 1\\), that is, \\(M(w) = 1\\), a contradiction.\n\nBoth cases are impossible, so no Turing machine decides UC.\n\n\n\n\n\n\n\n\n\n\n\nRemark 1 (The diagonal argument). Picture an infinite table with one row for each binary string \\(w\\), one column for each binary string \\(x\\), and the entry in row \\(w\\) and column \\(x\\) equal to \\(M_w(x)\\), or to a mark for “runs forever”. Each row lists everything one machine does. UC is built from the diagonal entries \\(M_w(w)\\), and it disagrees with row \\(w\\) in column \\(w\\) for every \\(w\\), so no row decides it. Arora and Barak (2009, chap. 3) use the same idea to prove the hierarchy theorems.",
+    "crumbs": [
+      "Computability",
+      "Computability"
+    ]
+  },
+  {
+    "objectID": "computability.html#sec-halting-problem",
+    "href": "computability.html#sec-halting-problem",
+    "title": "Computability",
+    "section": "3 The halting problem",
+    "text": "3 The halting problem\n\n\n\n\n\n\n\n\nDefinition 3 (The halting problem) The halting problem HALT is the decision problem\n\\[\\text{HALT} \\stackrel{\\text{def}}{=}{\\mathopen{}\\left\\{\\mathopen{}\\left\\langle w, x\\right\\rangle\\mathclose{} : M_w \\text{ halts on input } x\\right\\}\\mathclose{}},\\]\nwhere \\(\\mathopen{}\\left\\langle w, x\\right\\rangle\\mathclose{}\\) is the pair encoding of \\(w\\) and \\(x\\), and \\(M_w\\) is the machine that \\(w\\) describes (Arora and Barak 2009, sec. 1.5).\n\n\n\n\n\n\n\n\n\n\n\nExample 3 (Pairs in and out of the halting problem) Suppose \\(w\\) describes a machine that halts at once if the first symbol of its input is \\(0\\), and otherwise moves its input head right forever. Then \\(\\mathopen{}\\left\\langle w, 0\\right\\rangle\\mathclose{}\\) and \\(\\mathopen{}\\left\\langle w, 011\\right\\rangle\\mathclose{}\\) are in HALT, and \\(\\mathopen{}\\left\\langle w, 1\\right\\rangle\\mathclose{}\\) is not. Neither is \\(\\mathopen{}\\left\\langle w, x\\right\\rangle\\mathclose{}\\) for the empty string \\(x\\), because the first symbol the machine reads after \\(\\triangleright\\) is then a blank, not \\(0\\).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 2 (The halting problem is undecidable) The halting problem HALT is undecidable (Turing 1937; Arora and Barak 2009, sec. 1.5).\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. Suppose a Turing machine \\(H\\) decides HALT. Build a machine \\(D\\) that, on input \\(w\\), does the following:\n\nRun \\(H\\) on \\(\\mathopen{}\\left\\langle w, w\\right\\rangle\\mathclose{}\\).\nIf \\(H\\) outputs \\(0\\), then \\(M_w\\) does not halt on \\(w\\), so \\(M_w(w) \\ne 1\\) and \\(w \\in \\text{UC}\\): output \\(1\\).\nIf \\(H\\) outputs \\(1\\), then \\(M_w\\) halts on \\(w\\). Run the universal machine \\(U\\) on \\(\\mathopen{}\\left\\langle w, w\\right\\rangle\\mathclose{}\\), with \\(w\\) as the description and as the input, which halts with output \\(M_w(w)\\). Output \\(0\\) if \\(M_w(w) = 1\\), and \\(1\\) otherwise.\n\n\\(H\\) halts on every input, and step 3 runs \\(U\\) only when \\(M_w\\) halts on \\(w\\), so \\(D\\) halts on every input. Its output is \\(1\\) exactly when \\(M_w(w) \\ne 1\\), so \\(D\\) decides the diagonal problem UC. This contradicts Theorem 1, so no Turing machine decides HALT.\n\n\n\n\n\n\n\n\n\n\n\nRemark 2 (Undecidability in practice). Turing machines can simulate programs in ordinary programming languages (the Church-Turing thesis), so Theorem 2 says that no program can check, for every program and input, whether that program finishes. A job scheduler that runs users’ model-fitting code cannot predict which jobs will loop forever, so it stops jobs with a time limit instead. Tools that always finish and check code for infinite loops exist, but on some programs each one must answer “unknown”, miss a loop, or flag a program that does halt. The proof that Kolmogorov complexity cannot be computed is a second example of an uncomputable function, proved by a different argument.",
+    "crumbs": [
+      "Computability",
+      "Computability"
+    ]
+  },
+  {
+    "objectID": "computability.html#sec-time-hierarchy",
+    "href": "computability.html#sec-time-hierarchy",
+    "title": "Computability",
+    "section": "4 The time hierarchy theorem",
+    "text": "4 The time hierarchy theorem\n\n\n\n\n\n\n\n\nDefinition 4 (Time complexity class) Let \\(T\\) be a function from the nonnegative integers to the positive real numbers. The class \\(\\text{DTIME}(T(n))\\) is the set of decision problems \\(L\\) such that some Turing machine decides \\(L\\) and runs in time \\(T'(n)\\) for some function \\(T'\\) with \\(T'(n) = {O\\mathopen{}\\left(T(n)\\right)\\mathclose{}}\\) (big-O notation). Arora and Barak (2009, sec. 1.6) require a running time of at most \\(c \\, T(n)\\) for a constant \\(c\\) and every \\(n\\). Because \\(T(n) &gt; 0\\), the two definitions agree: a larger \\(c\\) covers the finitely many \\(n\\) below the threshold of \\({O\\mathopen{}\\left(\\cdot\\right)\\mathclose{}}\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 4 (Palindromes and the class P) The palindrome machine runs in time \\(3n + 4\\), which is at most \\(7n\\) for every \\(n \\ge 1\\) and so is \\({O\\mathopen{}\\left(n\\right)\\mathclose{}}\\), so PAL is in \\(\\text{DTIME}(n)\\) (time complexity class). The class P is the union of \\(\\text{DTIME}(n^c)\\) over all constants \\(c \\ge 1\\).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 3 (More time decides more problems) The time complexity class \\(\\text{DTIME}(n)\\) is a proper subset of \\(\\text{DTIME}(n^{1.5})\\) (Arora and Barak 2009, sec. 3.1).\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. Every problem in \\(\\text{DTIME}(n)\\) is in \\(\\text{DTIME}(n^{1.5})\\), because \\(n = {O\\mathopen{}\\left(n^{1.5}\\right)\\mathclose{}}\\). For the other half, let \\(U\\) be the universal machine, and build a machine \\(D\\) that, on an input \\(x\\) of length \\(n\\), does the following:\n\nCopy the pair encoding \\(\\mathopen{}\\left\\langle x, x\\right\\rangle\\mathclose{}\\) onto a work tape.\nCompute the number \\(t = \\mathopen{}\\left\\lfloor n^{1.4}\\right\\rfloor\\mathclose{}\\) in binary on another work tape. \nRun \\(U\\) on \\(\\mathopen{}\\left\\langle x, x\\right\\rangle\\mathclose{}\\), which runs the machine that \\(x\\) describes on input \\(x\\), and subtract \\(1\\) from \\(t\\) after each step of \\(U\\). Stop \\(U\\) when \\(t\\) reaches \\(0\\).\nIf \\(U\\) halted within those steps with output \\(b \\in {\\mathopen{}\\left\\{0, 1\\right\\}\\mathclose{}}\\), output \\(1 - b\\). Otherwise output \\(0\\).\n\nSteps 1 and 2 take \\({O\\mathopen{}\\left(n \\log_2 n\\right)\\mathclose{}}\\) steps: \\(D\\) writes \\(\\mathopen{}\\left\\langle x, x\\right\\rangle\\mathclose{}\\), counts the symbols of \\(x\\) in binary, then does arithmetic on numbers of \\({O\\mathopen{}\\left(\\log_2 n\\right)\\mathclose{}}\\) digits. Step 3 runs \\(U\\) for at most \\(n^{1.4}\\) steps, and each subtraction takes \\({O\\mathopen{}\\left(\\log_2 n\\right)\\mathclose{}}\\) steps, so step 3 takes \\({O\\mathopen{}\\left(n^{1.4} \\log_2 n\\right)\\mathclose{}}\\) steps, which is \\({O\\mathopen{}\\left(n^{1.5}\\right)\\mathclose{}}\\) because \\(\\log_2 n = {O\\mathopen{}\\left(n^{0.1}\\right)\\mathclose{}}\\).  So \\(D\\) halts on every input, and the problem \\(L\\) that \\(D\\) decides is in \\(\\text{DTIME}(n^{1.5})\\).\nSuppose \\(L\\) is also in \\(\\text{DTIME}(n)\\). Then some Turing machine \\(M\\) decides \\(L\\), and there are a constant \\(c \\ge 1\\) and an integer \\(n_0\\) such that \\(M\\) halts within \\(c \\, n\\) steps on every input of length \\(n \\ge n_0\\).  Let \\(x\\) be an input of length \\(n \\ge n_0\\), and let \\(w\\) be any description of \\(M\\). By ?@thm-universal-tm, \\(U\\) halts with output \\(M(x)\\) within \\(C \\, c \\, n \\log_2 (c \\, n)\\) steps when it runs \\(M_w\\) on \\(x\\), where \\(C\\) depends on \\(M\\) but not on \\(w\\) or \\(x\\). That bound is \\({O\\mathopen{}\\left(n \\log_2 n\\right)\\mathclose{}}\\), so there is an \\(n_1 \\ge n_0\\) such that the bound is less than \\(\\mathopen{}\\left\\lfloor n^{1.4}\\right\\rfloor\\mathclose{}\\) for every \\(n \\ge n_1\\). \\(M\\) has infinitely many descriptions, so it has a description \\(x\\) of length at least \\(n_1\\). On that input, \\(U\\) finishes within the \\(\\mathopen{}\\left\\lfloor n^{1.4}\\right\\rfloor\\mathclose{}\\) steps that \\(D\\) allows, with output \\(b = M(x)\\), so \\(D(x) = 1 - M(x) \\ne M(x)\\).  But \\(M\\) and \\(D\\) both decide \\(L\\), so \\(M(x) = D(x)\\), a contradiction. So \\(L\\) is not in \\(\\text{DTIME}(n)\\).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 4 (The time hierarchy theorem) Let \\(f\\) and \\(g\\) be time-constructible functions with \\(f(n) \\log_2 f(n) = o(g(n))\\) (little-o notation). Then the time complexity class \\(\\text{DTIME}(f(n))\\) is a proper subset of \\(\\text{DTIME}(g(n))\\) (Arora and Barak 2009, sec. 3.1).\n\n\n\n\n\n\n\n\n\n\n\nRemark 3 (Proof and consequences of the time hierarchy theorem). A refinement of the proof of Theorem 3 proves Theorem 4. It uses the same diagonal machine, but with a clock that costs a constant number of steps per simulated step on average, in place of the \\({O\\mathopen{}\\left(\\log_2 n\\right)\\mathclose{}}\\) steps per subtraction in the proof of Theorem 3. That proof could afford the extra \\(\\log_2 n\\) factor only because \\(n^{1.4}\\) and \\(n^{1.5}\\) differ by a power of \\(n\\). The \\(\\log_2 f(n)\\) factor in the hypothesis is the overhead of the universal machine in the universal machine theorem. Since \\(n^c \\log_2 n^c = o(n^{c + 1})\\), \\(\\text{DTIME}(n^c)\\) is a proper subset of \\(\\text{DTIME}(n^{c + 1})\\) for every integer \\(c \\ge 1\\), so the class P is not equal to \\(\\text{DTIME}(n^c)\\) for any single constant \\(c\\).",
+    "crumbs": [
+      "Computability",
+      "Computability"
+    ]
+  },
+  {
+    "objectID": "computability.html#references",
+    "href": "computability.html#references",
+    "title": "Computability",
+    "section": "References",
+    "text": "References\n\n\nArora, Sanjeev, and Boaz Barak. 2009. Computational Complexity: A Modern Approach. Cambridge University Press. https://doi.org/10.1017/CBO9780511804090.\n\n\nTuring, A. M. 1937. “On Computable Numbers, with an Application to the Entscheidungsproblem.” Proceedings of the London Mathematical Society s2-42 (1): 230–65. https://doi.org/10.1112/plms/s2-42.1.230.",
+    "crumbs": [
+      "Computability",
+      "Computability"
+    ]
+  },
+  {
+    "objectID": "kolmogorov-complexity.html",
+    "href": "kolmogorov-complexity.html",
+    "title": "Kolmogorov complexity",
+    "section": "",
+    "text": "Shannon entropy measures the information in a random source: how many binary digits, on average, its outcomes need. Kolmogorov complexity measures the information in one string: the length of the shortest program that prints it. This page defines Kolmogorov complexity, shows that most strings cannot be compressed and that no program computes it, and shows that its expected value per symbol approaches the entropy. It builds on the entropy and source coding pages in Information Theory for Data Science.",
+    "crumbs": [
+      "Compression",
+      "Kolmogorov complexity"
+    ]
+  },
+  {
+    "objectID": "kolmogorov-complexity.html#sec-kolmogorov-definition",
+    "href": "kolmogorov-complexity.html#sec-kolmogorov-definition",
+    "title": "Kolmogorov complexity",
+    "section": "1 Shortest descriptions",
+    "text": "1 Shortest descriptions\n\n\n\n\n\n\n\n\nDefinition 1 (Kolmogorov complexity) Fix a universal computer \\(U\\): a Turing machine, or an interpreter for a programming language, that reads a program \\(p\\), a finite string of binary digits, and either runs forever or halts and outputs a binary string \\(U(p)\\). Assume no program on which \\(U\\) halts is a proper prefix of another, as happens when \\(U\\) reads its program one digit at a time and must itself decide where the program ends.\nThe Kolmogorov complexity of a binary string \\(x\\) is the length of a shortest program that outputs \\(x\\):\n\\[{K\\mathopen{}\\left(x\\right)\\mathclose{}} \\stackrel{\\text{def}}{=}\\min {\\mathopen{}\\left\\{{\\mathopen{}\\left|p\\right|\\mathclose{}} : U(p) = x\\right\\}\\mathclose{}},\\]\nwhere \\({\\mathopen{}\\left|p\\right|\\mathclose{}}\\) is the number of digits in \\(p\\). This is the definition of Cover and Thomas (2006, sec. 14.2).\n\n\n\n\n\n\n\n\n\n\n\nDefinition 2 (Conditional Kolmogorov complexity) Let the universal computer \\(U\\) of Definition 1 also receive an integer \\(n\\) as an input, so that it outputs \\(U(p, n)\\) if it halts on program \\(p\\). Assume that, for each fixed \\(n\\), no program on which \\(U\\) halts is a proper prefix of another. The conditional Kolmogorov complexity of a binary string \\(x\\) given \\(n\\) is\n\\[{K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} \\stackrel{\\text{def}}{=}\\min {\\mathopen{}\\left\\{{\\mathopen{}\\left|p\\right|\\mathclose{}} : U(p, n) = x\\right\\}\\mathclose{}}.\\]\nCover and Thomas (2006, sec. 14.2) define it the same way.\n\n\n\n\n\n\n\n\n\n\n\nTheorem 1 (The choice of computer changes \\(K\\) by at most a constant) Let \\(K_U\\) and \\(K_A\\) be the Kolmogorov complexities and conditional Kolmogorov complexities defined with universal computers \\(U\\) and \\(A\\). There is a constant \\(c_A\\), which depends on \\(U\\) and \\(A\\) but not on \\(x\\) or \\(n\\), such that\n\\[K_U\\mathopen{}\\left(x\\right)\\mathclose{} \\le K_A\\mathopen{}\\left(x\\right)\\mathclose{} + c_A\n\\quad \\text{and} \\quad\nK_U\\mathopen{}\\left(x \\mid n\\right)\\mathclose{} \\le K_A\\mathopen{}\\left(x \\mid n\\right)\\mathclose{} + c_A\\]\nfor every binary string \\(x\\) and every integer \\(n\\).\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. Because \\(U\\) is universal, some program \\(s_A\\) makes \\(U\\) simulate \\(A\\): given \\(s_A\\) followed by a program \\(p\\) for \\(A\\), \\(U\\) outputs whatever \\(A\\) outputs on \\(p\\). So if \\(p\\) is a shortest program for \\(x\\) on \\(A\\), then \\(s_A\\) followed by \\(p\\) is a program for \\(x\\) on \\(U\\), and \\(K_U\\mathopen{}\\left(x\\right)\\mathclose{} \\le {\\mathopen{}\\left|s_A\\right|\\mathclose{}} + {\\mathopen{}\\left|p\\right|\\mathclose{}} = K_A\\mathopen{}\\left(x\\right)\\mathclose{} + {\\mathopen{}\\left|s_A\\right|\\mathclose{}}\\). The same program \\(s_A\\) also passes \\(n\\) on to \\(A\\), which gives the conditional bound in the same way. Take \\(c_A = {\\mathopen{}\\left|s_A\\right|\\mathclose{}}\\). Cover and Thomas (2006, sec. 14.2) give this argument in full.\n\n\n\n\n\n\n\n\n\n\n\nRemark 1 (Why the choice of computer hardly matters). Applying Theorem 1 with the roles of \\(U\\) and \\(A\\) swapped gives a constant \\(c'_A\\) with \\(K_A\\mathopen{}\\left(x\\right)\\mathclose{} \\le K_U\\mathopen{}\\left(x\\right)\\mathclose{} + c'_A\\). Together, \\(\\mathopen{}\\left|K_U\\mathopen{}\\left(x\\right)\\mathclose{} - K_A\\mathopen{}\\left(x\\right)\\mathclose{}\\right|\\mathclose{} \\le \\max(c_A, c'_A)\\) for every \\(x\\), and in the same way \\(\\mathopen{}\\left|K_U\\mathopen{}\\left(x \\mid n\\right)\\mathclose{} - K_A\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}\\right|\\mathclose{} \\le \\max(c_A, c'_A)\\) for every \\(x\\) and \\(n\\). The constant can be large, so the complexity of one short string means little, but statements about how \\({K\\mathopen{}\\left(x\\right)\\mathclose{}}\\) grows with the length of \\(x\\) do not depend on the computer. From here on, \\(U\\) is fixed and dropped from the notation.\n\n\n\n\n\n\n\n\n\n\n\nTheorem 2 (A string is never much more complex than its length) There is a constant \\(c\\) such that every binary string \\(x\\) of length \\(n\\) has\n\\[{K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} \\le n + c\\]\nand, when \\(n \\ge 1\\),\n\\[{K\\mathopen{}\\left(x\\right)\\mathclose{}} \\le n + 2 \\log_2 n + c.\\]\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. For the first bound, the program “print the next \\(n\\) digits” followed by the \\(n\\) digits of \\(x\\) outputs \\(x\\). Because \\(U\\) is given \\(n\\), the program needs no marker to show where it ends, and its fixed part has some length \\(c_1\\). So \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} \\le n + c_1\\).\nFor the second bound, the program must also describe \\(n\\) in a way that shows where the description ends. Write \\(n\\) in binary, which takes \\(\\mathopen{}\\left\\lfloor\\log_2 n\\right\\rfloor\\mathclose{} + 1\\) digits, repeat each digit twice, and end with the pair \\(01\\). This takes \\(2 \\mathopen{}\\left\\lfloor\\log_2 n\\right\\rfloor\\mathclose{} + 4 \\le 2 \\log_2 n + 4\\) digits. A program that reads this description of \\(n\\) and then prints the next \\(n\\) digits has length at most \\(n + 2 \\log_2 n + 4 + c_2\\) for a constant \\(c_2\\). Take \\(c = \\max(c_1, c_2 + 4)\\). Cover and Thomas (2006, sec. 14.2) prove both bounds.\n\n\n\n\n\n\n\n\n\n\n\nExample 1 (Simple strings)  \n\nFor \\(n \\ge 1\\), the string \\(x\\) of \\(n\\) zeros has \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} \\le c\\) for a constant \\(c\\), since the program “print \\(n\\) zeros” does not grow with \\(n\\). Without \\(n\\) given, the program must also describe \\(n\\), and the proof of Theorem 2 gives \\({K\\mathopen{}\\left(x\\right)\\mathclose{}} \\le 2 \\log_2 n + c'\\).\nThe string \\(x = 0101\\ldots01\\) of length \\(n\\), for even \\(n \\ge 2\\), also has \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} \\le c\\), since the program “print \\(01\\) until \\(n\\) digits are printed” does not grow with \\(n\\). Half its digits are ones, as expected of \\(n\\) fair coin flips.\nThe string \\(x\\) of the first \\(n\\) binary digits of \\(\\pi\\) also has \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} \\le c\\): a fixed program computes as many digits of \\(\\pi\\) as asked. The digits show no obvious pattern, yet they are as compressible as a string of zeros.",
+    "crumbs": [
+      "Compression",
+      "Kolmogorov complexity"
+    ]
+  },
+  {
+    "objectID": "kolmogorov-complexity.html#sec-incompressible-strings",
+    "href": "kolmogorov-complexity.html#sec-incompressible-strings",
+    "title": "Kolmogorov complexity",
+    "section": "2 Incompressible strings",
+    "text": "2 Incompressible strings\n\n\n\n\n\n\n\n\nTheorem 3 (Most strings are incompressible) Let \\(n \\ge 1\\) and \\(0 \\le k \\le n\\) be integers. Fewer than \\(2^{n-k}\\) of the \\(2^n\\) binary strings of length \\(n\\) satisfy \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} &lt; n - k\\). In particular, at least one string of length \\(n\\) has \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} \\ge n\\).\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. There are \\(2^j\\) binary strings of length \\(j\\), so the number of programs of length less than \\(n - k\\) is\n\\[\\sum_{j=0}^{n-k-1} 2^j = 2^{n-k} - 1,\\]\nwhere the sum is empty, and equal to \\(0\\), when \\(k = n\\).\nGiven \\(n\\), each program outputs at most one string, so at most \\(2^{n-k} - 1\\) strings \\(x\\) have a program shorter than \\(n - k\\). With \\(k = 0\\), at most \\(2^n - 1\\) of the \\(2^n\\) strings of length \\(n\\) have \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} &lt; n\\), which leaves at least one with \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} \\ge n\\).\n\n\n\n\n\n\n\n\n\n\n\nRemark 2 (Incompressible strings look random). By Theorem 3, if \\(x\\) is drawn uniformly from the strings of length \\(n\\), for example by \\(n\\) fair coin flips, then \\({\\Pr\\mathopen{}\\left({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} &lt; n - k\\right)\\mathclose{}} &lt; 2^{n-k} / 2^n = 2^{-k}\\). So a string of \\(n\\) fair coin flips can be compressed by more than \\(k\\) digits with probability less than \\(2^{-k}\\). A string with \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}} \\ge n\\) has no description shorter than itself. Li and Vitányi (2019, chap. 2) call a string random when it is incompressible in this sense, for a variant of \\(K\\) whose programs need not be prefix-free. A proof can pick an incompressible string and show that some property must hold for it, or else the string would have a short description. Li and Vitányi (2019, chap. 6) call this the incompressibility method.",
+    "crumbs": [
+      "Compression",
+      "Kolmogorov complexity"
+    ]
+  },
+  {
+    "objectID": "kolmogorov-complexity.html#sec-kolmogorov-uncomputable",
+    "href": "kolmogorov-complexity.html#sec-kolmogorov-uncomputable",
+    "title": "Kolmogorov complexity",
+    "section": "3 Kolmogorov complexity is uncomputable",
+    "text": "3 Kolmogorov complexity is uncomputable\n\n\n\n\n\n\n\n\nTheorem 4 (Kolmogorov complexity cannot be computed) No program takes a binary string \\(x\\) as input and outputs \\({K\\mathopen{}\\left(x\\right)\\mathclose{}}\\).\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. Suppose a program \\(Q\\) halts on every binary string \\(x\\) and outputs \\({K\\mathopen{}\\left(x\\right)\\mathclose{}}\\). For each integer \\(m \\ge 1\\), consider the program \\(P_m\\) that does the following: list binary strings in order of length, and in lexicographic order within each length, use \\(Q\\) to compute \\({K\\mathopen{}\\left(x\\right)\\mathclose{}}\\) for each one, and output the first \\(x\\) with \\({K\\mathopen{}\\left(x\\right)\\mathclose{}} \\ge m\\). Such an \\(x\\) exists, because fewer than \\(2^m\\) programs are shorter than \\(m\\), so \\(P_m\\) halts, and its output \\(x\\) has \\({K\\mathopen{}\\left(x\\right)\\mathclose{}} \\ge m\\).\nThe program \\(P_m\\) consists of a fixed part, of some length \\(c\\), and a description of \\(m\\) that shows where it ends, which the proof of Theorem 2 writes in at most \\(2 \\log_2 m + 4\\) digits. So the output \\(x\\) of \\(P_m\\) also has \\({K\\mathopen{}\\left(x\\right)\\mathclose{}} \\le 2 \\log_2 m + 4 + c\\), and together\n\\[m \\le {K\\mathopen{}\\left(x\\right)\\mathclose{}} \\le 2 \\log_2 m + 4 + c.\\]\nThe left side grows faster than the right, so this fails once \\(m\\) is large enough, and no such \\(Q\\) exists. The argument formalizes the Berry paradox, “the smallest positive integer not definable in under sixty letters”, and Cover and Thomas (2006, chap. 14) discuss why \\(K\\) cannot be computed.",
+    "crumbs": [
+      "Compression",
+      "Kolmogorov complexity"
+    ]
+  },
+  {
+    "objectID": "kolmogorov-complexity.html#sec-kolmogorov-entropy",
+    "href": "kolmogorov-complexity.html#sec-kolmogorov-entropy",
+    "title": "Kolmogorov complexity",
+    "section": "4 Kolmogorov complexity and entropy",
+    "text": "4 Kolmogorov complexity and entropy\n\n\n\n\n\n\n\n\nTheorem 5 (Expected Kolmogorov complexity per symbol approaches the entropy) Let \\(X_1, X_2, \\ldots\\) be independent copies of a random variable \\(X\\) that takes values in a finite set \\(\\mathcal{X}\\), each value written as a different binary string of one fixed length, and let \\({H\\mathopen{}\\left(X\\right)\\mathclose{}}\\) be the entropy of \\(X\\) with base-2 logarithms. Write \\(X^n = (X_1, \\ldots, X_n)\\). There is a constant \\(c\\), which depends on \\(\\mathcal{X}\\) and \\(U\\) but not on \\(n\\), such that, for every \\(n \\ge 1\\),\n\\[\n{H\\mathopen{}\\left(X\\right)\\mathclose{}}\n\\le \\frac{1}{n} {\\mathbb{E}\\mathopen{}\\left[{K\\mathopen{}\\left(X^n \\mid n\\right)\\mathclose{}}\\right]\\mathclose{}}\n\\le {H\\mathopen{}\\left(X\\right)\\mathclose{}} + \\frac{(\\mathopen{}\\left|\\mathcal{X}\\right|\\mathclose{} - 1) \\log_2 n}{n} + \\frac{c}{n}.\n\\]\nSo \\(\\frac{1}{n} {\\mathbb{E}\\mathopen{}\\left[{K\\mathopen{}\\left(X^n \\mid n\\right)\\mathclose{}}\\right]\\mathclose{}} \\to {H\\mathopen{}\\left(X\\right)\\mathclose{}}\\) as \\(n \\to \\infty\\). This is Theorem 14.3.1 of Cover and Thomas (2006).\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. For the lower bound, send each outcome \\(x^n\\) of \\(X^n\\) to a shortest program that outputs it given \\(n\\). Different outcomes get different programs, because a program determines its output, and no halting program is a prefix of another, so this is a prefix code for \\(X^n\\), which makes it uniquely decodable. Its expected length is \\({\\mathbb{E}\\mathopen{}\\left[{K\\mathopen{}\\left(X^n \\mid n\\right)\\mathclose{}}\\right]\\mathclose{}}\\). If \\(X\\) takes only one value with positive probability, then \\({H\\mathopen{}\\left(X\\right)\\mathclose{}} = 0\\) and the lower bound holds trivially. Otherwise, \\(X^n\\) also takes at least two values with positive probability, and part 1 of the source coding theorem gives \\({\\mathbb{E}\\mathopen{}\\left[{K\\mathopen{}\\left(X^n \\mid n\\right)\\mathclose{}}\\right]\\mathclose{}} \\ge {H\\mathopen{}\\left(X^n\\right)\\mathclose{}}\\). Applying the chain rule for entropy \\(n - 1\\) times, and using that conditioning on independent variables does not change entropy, gives \\({H\\mathopen{}\\left(X^n\\right)\\mathclose{}} = n {H\\mathopen{}\\left(X\\right)\\mathclose{}}\\). Dividing by \\(n\\) gives the lower bound.\nFor the upper bound, Cover and Thomas (2006, sec. 14.3) describe \\(x^n\\) in two parts: first how many times each value in \\(\\mathcal{X}\\) occurs, which takes about \\((\\mathopen{}\\left|\\mathcal{X}\\right|\\mathclose{} - 1) \\log_2 n\\) digits, then which of the strings with those counts \\(x^n\\) is, which takes about \\(n {H\\mathopen{}\\left(X\\right)\\mathclose{}}\\) digits on average.\n\n\n\n\n\n\n\n\n\n\n\nRemark 3 (Entropy describes a distribution; Kolmogorov complexity describes a string). Entropy is the expected surprisal of a random variable, so it is a property of a distribution and says nothing about any one outcome. Kolmogorov complexity is a property of one string and needs no distribution. Theorem 5 says that the two agree on average, per symbol, for long independent sequences. For a single string they can disagree: the string \\(0101\\ldots01\\) in Example 1 has as many ones as zeros, like a typical outcome of fair coin flips, whose entropy is 1 bit per flip, but its Kolmogorov complexity per digit, \\({K\\mathopen{}\\left(x \\mid n\\right)\\mathclose{}}/n \\le c/n\\), tends to 0.",
+    "crumbs": [
+      "Compression",
+      "Kolmogorov complexity"
+    ]
+  },
+  {
+    "objectID": "kolmogorov-complexity.html#references",
+    "href": "kolmogorov-complexity.html#references",
+    "title": "Kolmogorov complexity",
+    "section": "References",
+    "text": "References\n\n\nCover, Thomas M., and Joy A. Thomas. 2006. Elements of Information Theory. 2nd ed. Wiley-Interscience. https://doi.org/10.1002/047174882X.\n\n\nLi, Ming, and Paul Vitányi. 2019. An Introduction to Kolmogorov Complexity and Its Applications. 4th ed. Springer. https://doi.org/10.1007/978-3-030-11298-1.",
+    "crumbs": [
+      "Compression",
+      "Kolmogorov complexity"
+    ]
+  },
+  {
+    "objectID": "p-and-np.html",
+    "href": "p-and-np.html",
+    "title": "P and NP",
+    "section": "",
+    "text": "Some problems have fast algorithms; for others, the best known algorithms take time that grows exponentially with the size of the input. This page defines the class P of problems with fast algorithms, and the class NP of problems whose yes answers can be checked fast, measuring speed with asymptotic notation.",
+    "crumbs": [
+      "Hardness",
+      "P and NP"
+    ]
+  },
+  {
+    "objectID": "p-and-np.html#sec-decision-problems",
+    "href": "p-and-np.html#sec-decision-problems",
+    "title": "P and NP",
+    "section": "1 Decision problems and running time",
+    "text": "1 Decision problems and running time\n\n\n\n\n\n\n\n\nDefinition 1 (Decision problem) A decision problem asks a yes-or-no question about an input. Write each input as a binary string \\(x \\in \\{0, 1\\}^*\\), the set of finite strings of binary digits, and write \\(|x|\\) for its length. The decision problem is then the set \\(L \\subseteq \\{0, 1\\}^*\\) of inputs whose answer is yes, and an algorithm decides \\(L\\) if, on every input \\(x\\), it halts and outputs \\(1\\) if \\(x \\in L\\) and \\(0\\) if \\(x \\notin L\\). Arora and Barak (2009, chap. 1) call such a set \\(L\\) a language.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 2 (Running time) Let \\(T\\) be a function from the nonnegative integers to the nonnegative integers. An algorithm runs in time \\(T(n)\\) if on every input \\(x\\) it halts within \\(T(|x|)\\) steps. It runs in polynomial time if it runs in time \\(T(n)\\) with \\(T(n) = O(n^c)\\) for some constant \\(c\\), where \\(O\\) is big-O notation.",
+    "crumbs": [
+      "Hardness",
+      "P and NP"
+    ]
+  },
+  {
+    "objectID": "p-and-np.html#sec-class-p",
+    "href": "p-and-np.html#sec-class-p",
+    "title": "P and NP",
+    "section": "2 The class P",
+    "text": "2 The class P\n\n\n\n\n\n\n\n\nDefinition 3 (The class P) P is the set of decision problems that some algorithm decides in polynomial time (Arora and Barak 2009, sec. 1.6).\n\n\n\n\n\n\n\n\n\n\n\nRemark 1 (What counts as an algorithm and a step). Arora and Barak (2009, chap. 1) make “algorithm” precise as a Turing machine, and count one step as one move of the machine. Read “algorithm” either way: as a Turing machine, or as any program for an ordinary computer, with one step per basic operation on a bounded number of bits. The two models can simulate each other with at most a polynomial increase in running time (Arora and Barak 2009, chap. 1), so they agree on which problems are in P.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 4 (The reachability problem PATH) The decision problem PATH asks: given a graph \\(G\\) with \\(m\\) vertices, stored as its \\(m \\times m\\) adjacency matrix, and two vertices \\(s\\) and \\(t\\), is there a path from \\(s\\) to \\(t\\)?\n\n\n\n\n\n\n\n\n\n\n\nExample 1 (Reachability is in P) Breadth-first search decides PATH. It starts at \\(s\\), and, for each vertex it reaches, scans that vertex’s row of the matrix for neighbors not yet reached. It handles each vertex at most once and scans each row in \\(O(m)\\) steps, so it takes \\(O(m^2)\\) steps in all, and it answers yes exactly when it reaches \\(t\\). The input has length at least \\(m^2\\), so this running time is \\(O(n)\\) in the input length \\(n\\), and PATH is in P (Definition 3).",
+    "crumbs": [
+      "Hardness",
+      "P and NP"
+    ]
+  },
+  {
+    "objectID": "p-and-np.html#sec-class-np",
+    "href": "p-and-np.html#sec-class-np",
+    "title": "P and NP",
+    "section": "3 The class NP",
+    "text": "3 The class NP\n\n\n\n\n\n\n\n\nDefinition 5 (The class NP) A decision problem \\(L\\) is in NP if there are a polynomial \\(q\\) and an algorithm \\(V\\), the verifier, which takes two binary strings \\(x\\) and \\(u\\) as input and runs in time polynomial in \\(|x|\\), such that for every \\(x \\in \\{0, 1\\}^*\\),\n\\[\nx \\in L\n\\quad \\text{if and only if} \\quad\nV(x, u) = 1 \\text{ for some } u \\in \\{0, 1\\}^{q(|x|)}.\n\\]\nA string \\(u\\) with \\(V(x, u) = 1\\) is a certificate for \\(x\\) (Arora and Barak 2009, sec. 2.1).\n\n\n\n\n\n\n\n\n\n\n\nRemark 2 (NP means checkable, not solvable). For a problem in NP (Definition 5), a yes answer always has a short proof that can be checked quickly, though nothing says the proof is easy to find.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 6 (The independent set problem INDSET) An independent set in a graph is a set of vertices no two of which are joined by an edge. The decision problem INDSET asks: given a graph \\(G\\) with \\(m\\) vertices, stored as its adjacency matrix, and an integer \\(k \\ge 0\\), does \\(G\\) have an independent set of \\(k\\) vertices?\n\n\n\n\n\n\n\n\n\n\n\nExample 2 (Independent set is in NP) Let \\(x\\) be an input to INDSET, with a graph of \\(m\\) vertices. Its adjacency matrix has \\(m^2 \\ge m\\) entries, so \\(m \\le |x|\\). Take \\(q(n) = n\\) in Definition 5, so a certificate \\(u\\) has \\(|x|\\) binary digits. Its first \\(m\\) digits mark the vertices of a proposed independent set, and the verifier ignores the rest. The verifier checks that \\(k\\) of those \\(m\\) digits are \\(1\\) and that no two marked vertices are adjacent. That takes \\(O(m^2)\\) lookups in the adjacency matrix, which is polynomial in \\(|x|\\). \\(G\\) has an independent set of \\(k\\) vertices exactly when some such \\(u\\) passes, so INDSET is in NP (Definition 5). No polynomial-time algorithm that decides INDSET is known. Arora and Barak (2009, sec. 2.1) use the same example.\n\n\n\n\n\n\n\n\n\n\n\nTheorem 1 (P is contained in NP) Every decision problem in P (Definition 3) is in NP (Definition 5).\n\n\n\n\n\n\n\n\n\n\nProofProof\n\n\n\n\n\n\nProof. Let an algorithm \\(A\\) decide \\(L\\) in polynomial time. Take \\(q(n) = 0\\), so the only certificate is the empty string, and let the verifier \\(V(x, u)\\) ignore \\(u\\) and return \\(A(x)\\). \\(V\\) runs in polynomial time, and \\(V(x, u) = 1\\) exactly when \\(x \\in L\\).\n\n\n\n\n\n\n\n\n\n\n\nRemark 3 (The P versus NP question). Whether \\(\\mathrm{P} = \\mathrm{NP}\\) is open: no one has shown that some problem in NP lies outside P, or found polynomial-time algorithms for every problem in NP (Arora and Barak 2009, sec. 2.7). Most researchers expect the classes to differ, which would mean that, for some problems, checking a proposed answer is much easier than finding one.",
+    "crumbs": [
+      "Hardness",
+      "P and NP"
+    ]
+  },
+  {
+    "objectID": "p-and-np.html#references",
+    "href": "p-and-np.html#references",
+    "title": "P and NP",
+    "section": "References",
+    "text": "References\n\n\nArora, Sanjeev, and Boaz Barak. 2009. Computational Complexity: A Modern Approach. Cambridge University Press. https://doi.org/10.1017/CBO9780511804090.",
+    "crumbs": [
+      "Hardness",
+      "P and NP"
+    ]
+  }
+]
