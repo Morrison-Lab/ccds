@@ -4,7 +4,7 @@ Code
 
 Published
 
-Last modified: 2026-11-11 01:02:38 (PST)
+Last modified: 2026-11-11 13:30:37 (PST)
 
 Shannon entropy measures the information in a random source: how many binary digits, on average, its outcomes need. Kolmogorov complexity measures the information in one string: the length of the shortest program that prints it. This page defines Kolmogorov complexity, shows that most strings cannot be compressed and that no program computes it, and shows that its expected value per symbol approaches the entropy. It builds on the [entropy](https://morrison-lab.github.io/ids/entropy.html) and [source coding](https://morrison-lab.github.io/ids/source-coding.html) pages in *Information Theory for Data Science*.
 

@@ -4,7 +4,7 @@ Code
 
 Published
 
-Last modified: 2026-11-11 01:02:38 (PST)
+Last modified: 2026-11-11 13:30:37 (PST)
 
 To say that a problem needs a certain number of steps, we must first fix what a step is. This page defines the [Turing machine](#def-turing-machine), the model of computation that complexity theory uses, and shows why the choice of model hardly matters: the variants of the model, and ordinary computers, simulate each other with at most a polynomial increase in [running time](p-and-np.llms.md#def-running-time). It ends with the universal machine, one Turing machine that can run every other. The [asymptotic notation](asymptotic-notation.llms.md) page defines the ${O\mathopen{}\left(\cdot\right)\mathclose{}}$ notation used here.
 
@@ -19,7 +19,7 @@ To say that a problem needs a certain number of steps, we must first fix what a 
 > - A finite set $Q$ of *states*, which includes a start state $q_{\text{start}}$ and a halting state $q_{\text{halt}}$.
 > - A *transition function*, a map from $Q \times A^k$ to $Q \times A^{k - 1} \times {\mathopen{}\left\{\text{L}, \text{S}, \text{R}\right\}\mathclose{}}^k$.
 >
-> The machine starts in state $q_{\text{start}}$ with every head on its tape’s leftmost cell. Each tape holds $\triangleright$ in its leftmost cell and blanks after it, except that the input tape holds the input $x \in {\mathopen{}\left\{0, 1\right\}\mathclose{}}^*$ right after the $\triangleright$. In one *step*, the machine reads its state and the $k$ symbols under its heads, and the transition function gives a new state, a symbol to write on each tape but the input tape, and a move for each head: one cell left (L), stay (S), or one cell right (R). A head told to move left from the leftmost cell stays where it is. The machine *halts* when it enters $q_{\text{halt}}$, and its *output* is then the string of binary digits on the output tape, read from the cell after $\triangleright$ up to the first symbol that is not $0$ or $1$ ([Arora and Barak 2009, sec. 1.2](#ref-arora2009computational)).
+> The machine starts in state $q_{\text{start}}$ with every head on its tape’s leftmost cell. Each tape holds $\triangleright$ in its leftmost cell and blanks after it, except that the input tape holds the input $x \in {\mathopen{}\left\{0, 1\right\}\mathclose{}}^*$ right after the $\triangleright$. In one *step*, the machine reads its state and the $k$ symbols under its heads, and the transition function gives a new state, a symbol to write on each tape but the input tape, and a move for each head: one cell left (L), stay (S), or one cell right (R). A head told to move left from the leftmost cell stays where it is. The transition function never writes $\triangleright$ over another symbol, or another symbol over $\triangleright$, so each tape keeps $\triangleright$ in its leftmost cell and nowhere else. The machine *halts* when it enters $q_{\text{halt}}$, and its *output* is then the string of binary digits on the output tape, read from the cell after $\triangleright$ up to the first symbol that is not $0$ or $1$ ([Arora and Barak 2009, sec. 1.2](#ref-arora2009computational)).
 
 > **NOTE:**
 >
@@ -27,7 +27,9 @@ To say that a problem needs a certain number of steps, we must first fix what a 
 >
 > 1.  *Copy*: move the input head and the work head right together, writing each symbol of $x$ onto the work tape, until the input head reaches the blank after $x$. The first step also moves the output head right, off $\triangleright$.
 > 2.  *Rewind*: move the input head left until it reads $\triangleright$, then one cell right, onto the first symbol of $x$. Move the work head one cell left, onto the last symbol of the copy.
-> 3.  *Compare*: move the input head right and the work head left together. At each step, first check the input head: if it reads the blank after $x$, write $1$ on the output tape and [halt](#def-turing-machine). Otherwise, if the two heads read different symbols, write $0$ on the output tape and halt.
+> 3.  *Compare*: at each step, first check the input head. If it reads the blank after $x$, write $1$ on the output tape and [halt](#def-turing-machine). Otherwise, if the two heads read different symbols, write $0$ on the output tape and halt. If they read the same symbol, move the input head one cell right and the work head one cell left, and repeat.
+>
+> After the first step of the copy phase, the output head never moves, so the output is the single digit written in the cell after $\triangleright$.
 >
 > On the input $0110$, the compare phase reads the pairs $(0, 0)$, $(1, 1)$, $(1, 1)$, and $(0, 0)$, finds no mismatch, and outputs $1$. On $0111$ it reads $(0, 1)$ first and outputs $0$. Each phase is a few states of the machine, and each state of a phase checks which symbols the heads read to decide whether to stay in the phase or move to the next.
 
@@ -37,7 +39,7 @@ To say that a problem needs a certain number of steps, we must first fix what a 
 
 > **NOTE:**
 >
-> **Example 2 (Palindromes in linear time)** Let PAL be the [decision problem](p-and-np.llms.md#def-decision-problem) whose yes inputs are the palindromes. The machine of [Example 1](#exm-palindrome-machine) [computes](#def-tm-computes) the function that is $1$ on palindromes and $0$ on other strings, so it [decides](#def-tm-computes) PAL. On an input of length $n$, the copy phase takes $n + 1$ steps, the rewind phase at most $n + 2$, and the compare phase at most $n + 1$, so it [runs in time](p-and-np.llms.md#def-running-time) $3n + 4$, which is ${O\mathopen{}\left(n\right)\mathclose{}}$, and PAL is in [P](p-and-np.llms.md#def-class-p).
+> **Example 2 (Palindromes in linear time)** Let PAL be the [decision problem](p-and-np.llms.md#def-decision-problem) whose yes inputs are the palindromes. The machine of [Example 1](#exm-palindrome-machine) [computes](#def-tm-computes) the function that is $1$ on palindromes and $0$ on other strings, so it [decides](#def-tm-computes) PAL. On an input of length $n$, the copy phase takes $n + 1$ steps, the rewind phase exactly $n + 2$, and the compare phase at most $n + 1$. So the machine [runs in time](p-and-np.llms.md#def-running-time) $3n + 4$, which is ${O\mathopen{}\left(n\right)\mathclose{}}$, and PAL is in [P](p-and-np.llms.md#def-class-p). Palindromes take all $3n + 4$ steps, and other inputs stop sooner, at their first mismatch.
 
 > **NOTE:**
 >
@@ -55,7 +57,7 @@ To say that a problem needs a certain number of steps, we must first fix what a 
 
 > **NOTE:**
 >
-> *Remark 2* (Exact and asymptotic time bounds). Arora and Barak ([2009, sec. 1.3](#ref-arora2009computational)) ask the machine for a [time-constructible function](#def-time-constructible) to finish within $T(n)$ steps, not ${O\mathopen{}\left(T(n)\right)\mathclose{}}$ steps. No machine meets that bound for $T(n) = n$ on the empty input. There $T(0) = 0$, but the machine must take at least one step to write its output. The ${O\mathopen{}\left(\cdot\right)\mathclose{}}$ version allows for those few extra steps, and the [time complexity class](computability.llms.md#def-dtime) uses ${O\mathopen{}\left(\cdot\right)\mathclose{}}$ for the same reason. With a bound of $c \, T(n)$ steps for every $n$, as Arora and Barak ([2009, sec. 1.6](#ref-arora2009computational)) write it, the class $\text{DTIME}(n)$ would be empty. The two versions agree whenever $T(n) > 0$ for every $n$.
+> *Remark 2* (Exact and asymptotic time bounds). Arora and Barak ([2009, sec. 1.3](#ref-arora2009computational)) ask the machine for a [time-constructible function](#def-time-constructible) to finish within $T(n)$ steps, not ${O\mathopen{}\left(T(n)\right)\mathclose{}}$ steps. No machine meets that bound for $T(n) = n$ on the empty input. There $T(0) = 0$, but the machine must take at least one step to write its output. The ${O\mathopen{}\left(\cdot\right)\mathclose{}}$ version allows for those few extra steps, and the [time complexity class](computability.llms.md#def-dtime) uses ${O\mathopen{}\left(\cdot\right)\mathclose{}}$ for the same reason. Read literally, a bound of $c \, T(n)$ steps for every $n$, as Arora and Barak ([2009, sec. 1.6](#ref-arora2009computational)) write it, would leave the class $\text{DTIME}(n)$ empty, because of the empty input alone. The two versions agree whenever $T(n) > 0$ for every $n$.
 
 > **NOTE:**
 >
@@ -63,12 +65,13 @@ To say that a problem needs a certain number of steps, we must first fix what a 
 >
 > 1.  A Turing machine with $k$ tapes and the alphabet ${\mathopen{}\left\{0, 1, \square, \triangleright\right\}\mathclose{}}$ computes $f$ in time ${O\mathopen{}\left(T(n) \log_2 s\right)\mathclose{}}$.
 > 2.  A single-tape machine computes $f$ in time ${O\mathopen{}\left(T(n)^2\right)\mathclose{}}$.
+> 3.  If $M$ is instead a bidirectional machine, a Turing machine computes $f$ in time ${O\mathopen{}\left(T(n)\right)\mathclose{}}$.
 >
-> A *single-tape machine* is the same as a Turing machine, except that it has one tape, which starts with $\triangleright$ followed by the input, which it can read and write, and which holds the output when it [halts](#def-turing-machine). The constant in part 2 depends on $k$, and neither constant depends on $f$, $T$, or $n$ ([Arora and Barak 2009, sec. 1.3](#ref-arora2009computational)).
+> A *single-tape machine* is the same as a Turing machine, except that it has one tape, which starts with $\triangleright$ followed by the input, which it can read and write, and which holds the output when it [halts](#def-turing-machine). A *bidirectional machine* is the same as a Turing machine, except that each tape also goes on forever to the left of the cell holding $\triangleright$, and a head can move left from that cell. The input and the output sit to the right of $\triangleright$, as before. The constant in part 2 depends on $k$, and none of the constants depends on $f$, $T$, or $n$ ([Arora and Barak 2009, sec. 1.3](#ref-arora2009computational)).
 
 > **NOTE:**
 >
-> *Remark 3* (Simulations behind [Theorem 1](#thm-tm-robustness)). Arora and Barak ([2009, sec. 1.3](#ref-arora2009computational)) prove both parts by simulation. For part 1, the new machine writes each symbol of $M$’s alphabet as a block of about $\log_2 s$ binary digits, and it carries out one step of $M$ by reading and rewriting one block on each tape. For part 2, the single tape holds the contents of all $k$ tapes interleaved, with a mark at each head’s position. To carry out one step of $M$, the machine sweeps along the used part of the tape to read the marked symbols, and sweeps back to update them. After $t$ steps, $M$ has used at most $\max(n, t) + 1$ cells of each tape, which is ${O\mathopen{}\left(T(n)\right)\mathclose{}}$ because $T(n) \ge n$, so each sweep takes ${O\mathopen{}\left(T(n)\right)\mathclose{}}$ steps, and the $T(n)$ steps of $M$ take ${O\mathopen{}\left(T(n)^2\right)\mathclose{}}$ in all.
+> *Remark 3* (Simulations behind [Theorem 1](#thm-tm-robustness)). Arora and Barak ([2009, sec. 1.3](#ref-arora2009computational)) prove all three parts by simulation. For part 1, the new machine writes each symbol of $M$’s alphabet as a block of about $\log_2 s$ binary digits, and it carries out one step of $M$ by reading and rewriting one block on each tape. For part 2, the single tape holds the contents of all $k$ tapes interleaved, with a mark at each head’s position. To carry out one step of $M$, the machine sweeps along the used part of the tape to read the marked symbols, and sweeps back to update them. After $t$ steps, $M$ has used at most $\max(n, t) + 1$ cells of each tape, which is ${O\mathopen{}\left(T(n)\right)\mathclose{}}$ because $T(n) \ge n$, so each sweep takes ${O\mathopen{}\left(T(n)\right)\mathclose{}}$ steps, and the $T(n)$ steps of $M$ take ${O\mathopen{}\left(T(n)^2\right)\mathclose{}}$ in all. For part 3, the new machine first copies the input onto a work tape, which stands in for $M$’s input tape. It folds each of $M$’s tapes in half at the cell holding $\triangleright$, so that cell $i$ of a folded tape holds the pair of symbols $i$ cells to the right and $i$ cells to the left of $\triangleright$. It remembers in its state which half each head is in, so it carries out each step of $M$ in a constant number of steps. At the end it unfolds $M$’s output onto its own output tape. The input has $n$ symbols, which is at most $T(n)$, and the output has at most $T(n)$ symbols, so the copy and the unfolding take ${O\mathopen{}\left(T(n)\right)\mathclose{}}$ steps each.
 
 > **NOTE:**
 >

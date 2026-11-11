@@ -4,7 +4,7 @@ Code
 
 Published
 
-Last modified: 2026-11-11 01:02:38 (PST)
+Last modified: 2026-11-11 13:30:37 (PST)
 
 The cost of an algorithm depends on the size $n$ of its input. Asymptotic notation compares how two costs grow as $n$ grows, ignoring constant factors and small inputs.
 
