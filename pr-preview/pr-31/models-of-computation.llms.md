@@ -4,7 +4,7 @@ Code
 
 Published
 
-Last modified: 2026-11-11 13:30:37 (PST)
+Last modified: 2026-11-11 13:52:22 (PST)
 
 To say that a problem needs a certain number of steps, we must first fix what a step is. This page defines the [Turing machine](#def-turing-machine), the model of computation that complexity theory uses, and shows why the choice of model hardly matters: the variants of the model, and ordinary computers, simulate each other with at most a polynomial increase in [running time](p-and-np.llms.md#def-running-time). It ends with the universal machine, one Turing machine that can run every other. The [asymptotic notation](asymptotic-notation.llms.md) page defines the ${O\mathopen{}\left(\cdot\right)\mathclose{}}$ notation used here.
 

@@ -4,7 +4,7 @@ Code
 
 Published
 
-Last modified: 2026-11-11 13:30:37 (PST)
+Last modified: 2026-11-11 13:52:22 (PST)
 
 Some problems have no algorithm at all, however much time is allowed. No [Turing machine](models-of-computation.llms.md#def-turing-machine) [decides](models-of-computation.llms.md#def-tm-computes) whether a program [halts](models-of-computation.llms.md#def-turing-machine). The proof uses an argument called diagonalization, and the same argument shows that more time lets machines decide more problems. These results build on the [models of computation](models-of-computation.llms.md) page, which defines Turing machines, their [descriptions](models-of-computation.llms.md#def-tm-description) as strings, and the universal machine.
 
