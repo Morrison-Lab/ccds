@@ -1,7 +1,7 @@
 ::: {#rem-tm-robustness-proof}
 #### Simulations behind @thm-tm-robustness
 
-@arora2009computational [section 1.3] prove both parts by simulation.
+@arora2009computational [section 1.3] prove all three parts by simulation.
 For part 1, the new machine writes each symbol of $M$'s alphabet
 as a block of about $\log_2 s$ binary digits,
 and it carries out one step of $M$ by reading and rewriting one block on each tape.
@@ -14,5 +14,16 @@ After $t$ steps, $M$ has used at most $\max(n, t) + 1$ cells of each tape,
 which is $\asymub{T(n)}$ because $T(n) \ge n$,
 so each sweep takes $\asymub{T(n)}$ steps,
 and the $T(n)$ steps of $M$ take $\asymub{T(n)^2}$ in all.
+For part 3, the new machine first copies the input onto a work tape,
+which stands in for $M$'s input tape.
+It folds each of $M$'s tapes in half at the cell holding $\triangleright$,
+so that cell $i$ of a folded tape holds the pair of symbols
+$i$ cells to the right and $i$ cells to the left of $\triangleright$.
+It remembers in its state which half each head is in,
+so it carries out each step of $M$ in a constant number of steps.
+At the end it unfolds $M$'s output onto its own output tape.
+The input has $n$ symbols, which is at most $T(n)$,
+and the output has at most $T(n)$ symbols,
+so the copy and the unfolding take $\asymub{T(n)}$ steps each.
 
 :::

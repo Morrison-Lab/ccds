@@ -15,12 +15,17 @@ can check whether its input $x$ is a palindrome in three phases
 2. *Rewind*: move the input head left until it reads $\triangleright$,
    then one cell right, onto the first symbol of $x$.
    Move the work head one cell left, onto the last symbol of the copy.
-3. *Compare*: move the input head right and the work head left together.
-   At each step, first check the input head:
-   if it reads the blank after $x$,
+3. *Compare*: at each step, first check the input head.
+   If it reads the blank after $x$,
    write $1$ on the output tape and [halt](#def-turing-machine).
    Otherwise, if the two heads read different symbols,
    write $0$ on the output tape and halt.
+   If they read the same symbol,
+   move the input head one cell right and the work head one cell left,
+   and repeat.
+
+After the first step of the copy phase, the output head never moves,
+so the output is the single digit written in the cell after $\triangleright$.
 
 On the input $0110$,
 the compare phase reads the pairs $(0, 0)$, $(1, 1)$, $(1, 1)$, and $(0, 0)$,

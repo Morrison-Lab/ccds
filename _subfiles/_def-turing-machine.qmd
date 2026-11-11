@@ -28,6 +28,9 @@ a symbol to write on each tape but the input tape,
 and a move for each head:
 one cell left (L), stay (S), or one cell right (R).
 A head told to move left from the leftmost cell stays where it is.
+The transition function never writes $\triangleright$ over another symbol,
+or another symbol over $\triangleright$,
+so each tape keeps $\triangleright$ in its leftmost cell and nowhere else.
 The machine *halts* when it enters $q_{\text{halt}}$,
 and its *output* is then the string of binary digits on the output tape,
 read from the cell after $\triangleright$ up to the first symbol that is not $0$ or $1$

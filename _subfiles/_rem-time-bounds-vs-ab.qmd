@@ -9,9 +9,10 @@ There $T(0) = 0$,
 but the machine must take at least one step to write its output.
 The $\asymub{\cdot}$ version allows for those few extra steps,
 and the [time complexity class](computability.qmd#def-dtime) uses $\asymub{\cdot}$ for the same reason.
-With a bound of $c \, T(n)$ steps for every $n$,
+Read literally, a bound of $c \, T(n)$ steps for every $n$,
 as @arora2009computational [section 1.6] write it,
-the class $\text{DTIME}(n)$ would be empty.
+would leave the class $\text{DTIME}(n)$ empty,
+because of the empty input alone.
 The two versions agree whenever $T(n) > 0$ for every $n$.
 
 :::

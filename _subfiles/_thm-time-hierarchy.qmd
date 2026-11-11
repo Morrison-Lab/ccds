@@ -41,19 +41,23 @@ Then some [Turing machine](models-of-computation.qmd#def-turing-machine) $M$ dec
 and there are a constant $c \ge 1$ and an integer $n_0$
 such that $M$ halts within $c \, n$ steps on every input of length $n \ge n_0$.
 <!-- hybrid-ok: the math only names the input and its length -->
-Let $x$ be an input of length $n \ge n_0$,
-and let $w$ be any [description](models-of-computation.qmd#def-tm-description) of $M$.
-By [the universal machine theorem](models-of-computation.qmd#thm-universal-tm),
-$U$ on $\angb{w, x}$ halts with output $M(x)$ within
-$C \paren{\strlen{w} + c \, n \log_2 (c \, n + 1)}$ steps,
-where $C$ depends on $M$ but not on $w$ or $x$.
-When $w = x$, so that $\strlen{w} = n$,
-that bound is $\asymub{n \log_2 n}$,
-so there is an $n_1 \ge n_0$ such that the bound is less than $\floor{n^{1.4}}$
+Let $C$ be the constant that
+[the universal machine theorem](models-of-computation.qmd#thm-universal-tm)
+gives for $M$,
+and let
+$$
+B(n) \eqdef C \paren{n + c \, n \log_2 (c \, n + 1)}.
+$$
+$B(n)$ is $\asymub{n \log_2 n}$,
+so there is an $n_1 \ge \max(n_0, 1)$ such that $B(n) < \floor{n^{1.4}}$
 for every $n \ge n_1$.
-$M$ has infinitely many descriptions,
-so it has a description $x$ of length at least $n_1$.
-On that input, $U$ finishes within the $\floor{n^{1.4}}$ steps that $D$ allows,
+$M$ has infinitely many [descriptions](models-of-computation.qmd#def-tm-description),
+so it has a description $x$ whose length $n$ is at least $n_1$.
+$M$ halts on $x$ within $c \, n$ steps,
+so by the universal machine theorem,
+$U$ on $\angb{x, x}$ halts with output $M(x)$ within
+$C \paren{\strlen{x} + c \, n \log_2 (c \, n + 1)} = B(n)$ steps.
+So $U$ finishes within the $\floor{n^{1.4}}$ steps that $D$ allows,
 with output $b = M(x)$,
 so $D(x) = 1 - M(x) \ne M(x)$. <!-- inline-ok -->
 But $M$ and $D$ both decide $L$, so $M(x) = D(x)$,
