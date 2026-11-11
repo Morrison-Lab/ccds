@@ -4,7 +4,7 @@ Code
 
 Published
 
-Last modified: 2026-11-11 00:40:31 (PST)
+Last modified: 2026-11-11 01:02:38 (PST)
 
 A reduction turns every question about one problem into a question about another, so that a fast algorithm for the second gives one for the first. Reductions compare the difficulty of the problems in [NP](p-and-np.llms.md#def-class-np), and single out the hardest of them.
 
